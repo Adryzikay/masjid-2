@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Masjid Jamek Kampung Baru</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <meta name="description" content="Laman rasmi Masjid Jamek Kampung Baru, Kuala Lumpur — waktu solat harian terkini, program & aktiviti, sumbangan, dan maklumat masjid.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Masjid Jamek Kampung Baru">
+  <meta property="og:description" content="Laman rasmi Masjid Jamek Kampung Baru, Kuala Lumpur — waktu solat harian terkini, program & aktiviti, sumbangan, dan maklumat masjid.">
+  <meta property="og:image" content="https://nry.com.my/wp-content/uploads/2019/10/Kampung-Baru-Masjid-Jamek_02.jpg">
+  <meta property="og:locale" content="ms_MY">
+  <meta name="twitter:card" content="summary_large_image">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Mosque",
+    "name": "Masjid Jamek Kampung Baru",
+    "image": "https://nry.com.my/wp-content/uploads/2019/10/Kampung-Baru-Masjid-Jamek_02.jpg",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Jalan Raja Muda Musa, Kampung Baru",
+      "addressLocality": "Kuala Lumpur",
+      "postalCode": "50300",
+      "addressCountry": "MY"
+    },
+    "telephone": "+60326913954"
+  }
+  </script>
+</head>
+<body>
+  <header class="site">
+    <div class="nav">
+      <a href="index.html" class="brand">
+        <svg class="mark" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M24 3 L27 10 L24 8 L21 10 Z" fill="#C89B3C"/>
+          <path d="M8 44V26C8 17 15 11 24 11C33 11 40 17 40 26V44Z" fill="#0F4C3A"/>
+          <path d="M24 11C24 11 18 16 18 24C18 27 20 29 24 29C28 29 30 27 30 24C30 16 24 11 24 11Z" fill="#C89B3C"/>
+          <rect x="4" y="41" width="40" height="4" fill="#0A3328"/>
+        </svg>
+        <span class="name">Masjid Jamek Kampung Baru<small>Kuala Lumpur</small></span>
+      </a>
+      <nav class="links" id="navLinks">
+        <a href="index.html" class="current">Utama</a>
+        <a href="about.html">Tentang</a>
+        <a href="program.html">Program</a>
+        <a href="solat.html">Waktu Solat</a>
+        <a href="sumbangan.html">Sumbangan</a>
+        <a href="contact.html">Hubungi</a>
+      </nav>
+      <div class="nav-cta">
+        <a class="btn btn-outline-dark" href="https://wa.me/60123456789" target="_blank" rel="noopener"><span class="long">WhatsApp</span></a>
+        <button class="burger" id="burgerBtn" aria-label="Buka menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="utama">
+      <svg class="hero-pattern" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <pattern id="star8" width="90" height="90" patternUnits="userSpaceOnUse">
+            <g stroke="#C89B3C" stroke-width="1" fill="none">
+              <path d="M45 5 L55 25 L77 15 L67 37 L85 45 L67 53 L77 75 L55 65 L45 85 L35 65 L13 75 L23 53 L5 45 L23 37 L13 15 L35 25 Z"/>
+            </g>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#star8)"/>
+      </svg>
+      <div class="hero-inner">
+        <div>
+          <span class="hero-eyebrow">Assalamualaikum warahmatullahi wabarakatuh</span>
+          <h1>Masjid Jamek<br>Kampung Baru</h1>
+          <p class="lead">Menjadi pusat ibadah dan perpaduan masyarakat Kampung Baru sejak berdekad lamanya � tempat solat, menuntut ilmu, dan bersilaturahim untuk seluruh warga sekitar.</p>
+          <div class="hero-actions">
+            <a href="https://wa.me/60123456789" target="_blank" rel="noopener" class="btn btn-gold">Hubungi Masjid</a>
+            <a href="solat.html" class="btn btn-outline">Waktu Solat Hari Ini</a>
+          </div>
+        </div>
+        <div class="prayer-card">
+          <span class="label">Waktu solat seterusnya</span>
+          <div class="next-name" id="nextPrayerName">Zohor</div>
+          <div class="next-time" id="nextPrayerTime">1:23 PM</div>
+          <div class="countdown">Baki masa: <b id="countdownText">…</b></div>
+          <div class="prayer-progress"><div class="prayer-progress-fill" id="prayerProgressFill"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TODO: muat naik gambar ni ke folder projek sendiri (contoh: images/masjid-hero.jpg) dan tukar src di bawah,
+         supaya gambar tak hilang kalau website nry.com.my tukar/padam fail asal -->
+    <div class="photo-banner">
+      <img src="https://nry.com.my/wp-content/uploads/2019/10/Kampung-Baru-Masjid-Jamek_02.jpg" alt="Masjid Kampung Baru" width="1200" height="675" loading="eager"/>
+    </div>
+
+    <div class="ticker-bar">
+      <div class="ticker-tag">Pengumuman</div>
+      <div class="ticker-track">
+        <span>Solat Jumaat bermula jam 1:15 PM � khatib minggu ini: Ustaz Hafiz Rahman.</span>
+        <span>Kelas Tafsir Al-Quran malam Selasa diteruskan selepas solat Isyak di ruang tingkat 2.</span>
+        <span>Kutipan Tabung Pembinaan Menara Azan masih dibuka � sumbangan boleh dibuat melalui DuitNow.</span>
+        <span>Solat Jumaat bermula jam 1:15 PM � khatib minggu ini: Ustaz Hafiz Rahman.</span>
+        <span>Kelas Tafsir Al-Quran malam Selasa diteruskan selepas solat Isyak di ruang tingkat 2.</span>
+        <span>Kutipan Tabung Pembinaan Menara Azan masih dibuka � sumbangan boleh dibuat melalui DuitNow.</span>
+      </div>
+    </div>
+
+    <section class="section solat-section reveal" id="waktu-solat-preview">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker">Setiap hari, lima kali</span>
+          <h2>Waktu Solat Hari Ini</h2>
+          <p>Waktu semasa ditanda secara automatik. Lihat jadual penuh dan penjelasan di halaman <a href="solat.html" style="color:var(--green-ink);text-decoration:underline;">Waktu Solat</a>.</p>
+        </div>
+        <div class="solat-grid" id="solatGrid">
+          <div class="solat-cell" data-name="Subuh"><div class="name">Subuh</div><div class="time">5:58 AM</div></div>
+          <div class="solat-cell" data-name="Syuruk"><div class="name">Syuruk</div><div class="time">7:18 AM</div></div>
+          <div class="solat-cell" data-name="Zohor"><div class="name">Zohor</div><div class="time">1:23 PM</div></div>
+          <div class="solat-cell" data-name="Asar"><div class="name">Asar</div><div class="time">4:44 PM</div></div>
+          <div class="solat-cell" data-name="Maghrib"><div class="name">Maghrib</div><div class="time">7:23 PM</div></div>
+          <div class="solat-cell" data-name="Isyak"><div class="name">Isyak</div><div class="time">8:33 PM</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal" id="pengumuman-program">
+      <div class="wrap two-col">
+        <div>
+          <div class="section-head" style="margin-bottom:32px;">
+            <span class="kicker">Terkini</span>
+            <h2>Pengumuman</h2>
+          </div>
+          <div class="list-item">
+            <span class="tag">Khutbah Jumaat</span>
+            <h3>Perubahan khatib minggu ini</h3>
+            <p>Khutbah Jumaat 5 September akan disampaikan oleh Ustaz Hafiz Rahman, menggantikan jadual asal. Solat bermula jam 1:15 petang.</p>
+          </div>
+          <div class="list-item">
+            <span class="tag">Kutipan Derma</span>
+            <h3>Tabung Pembinaan Menara Azan</h3>
+            <p>Sumbangan masih dibuka untuk projek naik taraf menara azan. Lihat butiran penuh di halaman <a href="sumbangan.html" style="color:var(--green-ink);text-decoration:underline;">Sumbangan</a>.</p>
+          </div>
+          <div class="list-item">
+            <span class="tag">Kelas Fardu Ain</span>
+            <h3>Pendaftaran kelas dewasa dibuka</h3>
+            <p>Kelas asas fardu ain untuk golongan dewasa akan bermula bulan depan, dua kali seminggu selepas solat Maghrib.</p>
+          </div>
+        </div>
+        <div>
+          <div class="section-head" style="margin-bottom:32px;">
+            <span class="kicker">Jangan lepaskan</span>
+            <h2>Aktiviti Akan Datang</h2>
+          </div>
+          <div class="program-item">
+            <div class="program-date"><div class="d">05</div><div class="m">Sep</div></div>
+            <div><h3>Kuliah Subuh Mingguan</h3><p>Bersama Ustaz Zulkifli Hassan, di ruang solat utama.</p></div>
+          </div>
+          <div class="program-item">
+            <div class="program-date"><div class="d">12</div><div class="m">Sep</div></div>
+            <div><h3>Ceramah Maulidur Rasul</h3><p>Selepas solat Isyak, terbuka kepada seluruh komuniti Kampung Baru.</p></div>
+          </div>
+          <div class="program-item">
+            <div class="program-date"><div class="d">20</div><div class="m">Sep</div></div>
+            <div><h3>Gotong-royong & Rumah Terbuka</h3><p>Kerja membersih kawasan masjid, diikuti jamuan ringkas selepas Zohor.</p></div>
+          </div>
+          <div style="margin-top:20px;">
+            <a href="program.html" class="btn btn-outline-dark">Lihat Semua Program</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <div class="brand-f">Masjid Jamek Kampung Baru</div>
+      <div>� <span id="year"></span> Masjid Jamek Kampung Baru. Hak cipta terpelihara.</div>
+    </div>
+  </footer>
+
+  <a class="wa-float" href="https://wa.me/60123456789" target="_blank" rel="noopener" aria-label="WhatsApp Masjid">
+    <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.39 1.26 4.81L2 22l5.42-1.35a9.83 9.83 0 0 0 4.62 1.15h.01c5.46 0 9.9-4.45 9.9-9.9C21.95 6.45 17.5 2 12.04 2Zm5.77 14.02c-.24.68-1.4 1.3-1.93 1.35-.5.06-1.06.28-3.55-.74-2.98-1.22-4.9-4.23-5.05-4.43-.15-.2-1.2-1.6-1.2-3.05 0-1.45.76-2.16 1.03-2.46.27-.3.6-.37.8-.37.2 0 .4 0 .58.01.19.01.44-.07.68.53.25.6.85 2.08.92 2.23.07.15.12.33.02.53-.1.2-.15.33-.3.5-.15.18-.32.4-.45.53-.15.15-.31.32-.13.62.18.3.8 1.32 1.72 2.14 1.18 1.06 2.18 1.39 2.48 1.54.3.15.48.13.65-.08.18-.2.76-.9.96-1.2.2-.3.4-.25.68-.15.28.1 1.75.83 2.05.98.3.15.5.22.57.35.08.13.08.75-.16 1.42Z"/></svg>
+  </a>
+
+  <script src="script.js"></script>
+</body>
+</html>

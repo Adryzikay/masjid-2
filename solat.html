@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Waktu Solat | Masjid Jamek Kampung Baru</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <meta name="description" content="Jadual waktu solat harian Masjid Jamek Kampung Baru mengikut kaedah JAKIM, dikemas kini automatik setiap hari.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Waktu Solat | Masjid Jamek Kampung Baru">
+  <meta property="og:description" content="Jadual waktu solat harian Masjid Jamek Kampung Baru mengikut kaedah JAKIM, dikemas kini automatik setiap hari.">
+  <meta property="og:image" content="https://nry.com.my/wp-content/uploads/2019/10/Kampung-Baru-Masjid-Jamek_02.jpg">
+  <meta property="og:locale" content="ms_MY">
+  <meta name="twitter:card" content="summary_large_image">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Mosque",
+    "name": "Masjid Jamek Kampung Baru",
+    "image": "https://nry.com.my/wp-content/uploads/2019/10/Kampung-Baru-Masjid-Jamek_02.jpg",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Jalan Raja Muda Musa, Kampung Baru",
+      "addressLocality": "Kuala Lumpur",
+      "postalCode": "50300",
+      "addressCountry": "MY"
+    },
+    "telephone": "+60326913954"
+  }
+  </script>
+</head>
+<body>
+  <header class="site">
+    <div class="nav">
+      <a href="index.html" class="brand">
+        <svg class="mark" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M24 3 L27 10 L24 8 L21 10 Z" fill="#C89B3C"/>
+          <path d="M8 44V26C8 17 15 11 24 11C33 11 40 17 40 26V44Z" fill="#0F4C3A"/>
+          <path d="M24 11C24 11 18 16 18 24C18 27 20 29 24 29C28 29 30 27 30 24C30 16 24 11 24 11Z" fill="#C89B3C"/>
+          <rect x="4" y="41" width="40" height="4" fill="#0A3328"/>
+        </svg>
+        <span class="name">Masjid Jamek Kampung Baru<small>Kuala Lumpur</small></span>
+      </a>
+      <nav class="links" id="navLinks">
+        <a href="index.html">Utama</a>
+        <a href="about.html">Tentang</a>
+        <a href="program.html">Program</a>
+        <a href="solat.html" class="current">Waktu Solat</a>
+        <a href="sumbangan.html">Sumbangan</a>
+        <a href="contact.html">Hubungi</a>
+      </nav>
+      <div class="nav-cta">
+        <a class="btn btn-outline-dark" href="https://wa.me/60123456789" target="_blank" rel="noopener"><span class="long">WhatsApp</span></a>
+        <button class="burger" id="burgerBtn" aria-label="Buka menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="inner-hero">
+      <div class="wrap">
+        <span class="hero-eyebrow" style="color:var(--gold);">Setiap hari, lima kali</span>
+        <h1 style="color:var(--cream);font-size:clamp(2rem,4vw,2.8rem);">Waktu Solat</h1>
+        <p class="lead" style="color:#DCE7E0;margin-top:14px;max-width:60ch;">Jadual waktu solat harian di Masjid Jamek Kampung Baru. Waktu semasa ditanda secara automatik mengikut jam peranti anda.</p>
+      </div>
+    </section>
+
+    <section class="section solat-section reveal" id="waktu-solat">
+      <div class="wrap">
+        <div class="solat-grid" id="solatGrid">
+          <div class="solat-cell" data-name="Subuh"><div class="name">Subuh</div><div class="time">5:58 AM</div></div>
+          <div class="solat-cell" data-name="Syuruk"><div class="name">Syuruk</div><div class="time">7:18 AM</div></div>
+          <div class="solat-cell" data-name="Zohor"><div class="name">Zohor</div><div class="time">1:23 PM</div></div>
+          <div class="solat-cell" data-name="Asar"><div class="name">Asar</div><div class="time">4:44 PM</div></div>
+          <div class="solat-cell" data-name="Maghrib"><div class="name">Maghrib</div><div class="time">7:23 PM</div></div>
+          <div class="solat-cell" data-name="Isyak"><div class="name">Isyak</div><div class="time">8:33 PM</div></div>
+        </div>
+        <p class="solat-note">Sedang memuatkan waktu solat terkini…</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <div class="brand-f">Masjid Jamek Kampung Baru</div>
+      <div>© <span id="year"></span> Masjid Jamek Kampung Baru. Hak cipta terpelihara.</div>
+    </div>
+  </footer>
+
+  <a class="wa-float" href="https://wa.me/60123456789" target="_blank" rel="noopener" aria-label="WhatsApp Masjid">
+    <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.39 1.26 4.81L2 22l5.42-1.35a9.83 9.83 0 0 0 4.62 1.15h.01c5.46 0 9.9-4.45 9.9-9.9C21.95 6.45 17.5 2 12.04 2Zm5.77 14.02c-.24.68-1.4 1.3-1.93 1.35-.5.06-1.06.28-3.55-.74-2.98-1.22-4.9-4.23-5.05-4.43-.15-.2-1.2-1.6-1.2-3.05 0-1.45.76-2.16 1.03-2.46.27-.3.6-.37.8-.37.2 0 .4 0 .58.01.19.01.44-.07.68.53.25.6.85 2.08.92 2.23.07.15.12.33.02.53-.1.2-.15.33-.3.5-.15.18-.32.4-.45.53-.15.15-.31.32-.13.62.18.3.8 1.32 1.72 2.14 1.18 1.06 2.18 1.39 2.48 1.54.3.15.48.13.65-.08.18-.2.76-.9.96-1.2.2-.3.4-.25.68-.15.28.1 1.75.83 2.05.98.3.15.5.22.57.35.08.13.08.75-.16 1.42Z"/></svg>
+  </a>
+
+  <script src="script.js"></script>
+</body>
+</html>
