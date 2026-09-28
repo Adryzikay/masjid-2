@@ -260,3 +260,40 @@ if (document.querySelector('.solat-cell') || document.getElementById('nextPrayer
   setInterval(updatePrayerState, 1000);
   setInterval(fetchTodayPrayerTimes, 60000);
 }
+
+const programPhotos = document.querySelectorAll('#program .cat-grid .cat-photo');
+if (programPhotos.length && typeof HTMLDialogElement !== 'undefined') {
+  const photoDialog = document.createElement('dialog');
+  photoDialog.className = 'program-photo-dialog';
+  photoDialog.setAttribute('aria-label', 'Paparan gambar program');
+
+  const closePhotoDialog = document.createElement('button');
+  closePhotoDialog.type = 'button';
+  closePhotoDialog.className = 'program-photo-dialog-close';
+  closePhotoDialog.textContent = 'Tutup';
+
+  const expandedPhoto = document.createElement('img');
+  expandedPhoto.alt = '';
+  photoDialog.append(closePhotoDialog, expandedPhoto);
+  document.body.appendChild(photoDialog);
+
+  programPhotos.forEach((photo) => {
+    const trigger = document.createElement('button');
+    trigger.type = 'button';
+    trigger.className = 'cat-photo-trigger';
+    const programName = photo.closest('.cat-cell')?.querySelector('h3')?.textContent.trim() || photo.alt;
+    trigger.setAttribute('aria-label', `Besarkan gambar: ${programName}`);
+    photo.parentNode.insertBefore(trigger, photo);
+    trigger.appendChild(photo);
+    trigger.addEventListener('click', () => {
+      expandedPhoto.src = photo.currentSrc || photo.src;
+      expandedPhoto.alt = photo.alt;
+      photoDialog.showModal();
+    });
+  });
+
+  closePhotoDialog.addEventListener('click', () => photoDialog.close());
+  photoDialog.addEventListener('click', (event) => {
+    if (event.target === photoDialog) photoDialog.close();
+  });
+}
