@@ -263,6 +263,11 @@ if (document.querySelector('.solat-cell') || document.getElementById('nextPrayer
 
 const programPhotos = document.querySelectorAll('#program .cat-grid > .cat-cell > .cat-photo, #program .cat-grid .cat-photo-pair > .cat-photo:first-child');
 if (programPhotos.length && typeof HTMLDialogElement !== 'undefined') {
+  const allProgramPhotos = Array.from(document.querySelectorAll('#program .cat-grid .cat-photo'));
+  const programGallery = allProgramPhotos.map((photo) => ({
+    src: photo.currentSrc || photo.src,
+    alt: photo.alt
+  }));
   const photoDialog = document.createElement('dialog');
   photoDialog.className = 'program-photo-dialog';
   photoDialog.setAttribute('aria-label', 'Paparan gambar program');
@@ -308,17 +313,12 @@ if (programPhotos.length && typeof HTMLDialogElement !== 'undefined') {
     photo.parentNode.insertBefore(trigger, photo);
     trigger.appendChild(photo);
     const pair = photo.closest('.cat-photo-pair');
-    const gallery = pair ? Array.from(pair.querySelectorAll('.cat-photo')).map((image) => ({
-      src: image.currentSrc || image.src,
-      alt: image.alt
-    })) : [{ src: photo.currentSrc || photo.src, alt: photo.alt }];
 
     trigger.addEventListener('click', () => {
-      activeGallery = gallery;
-      showPhoto(0);
-      const hasMultiplePhotos = gallery.length > 1;
-      previousPhoto.hidden = !hasMultiplePhotos;
-      nextPhoto.hidden = !hasMultiplePhotos;
+      activeGallery = programGallery;
+      showPhoto(allProgramPhotos.indexOf(photo));
+      previousPhoto.hidden = programGallery.length < 2;
+      nextPhoto.hidden = programGallery.length < 2;
       photoDialog.showModal();
     });
 
