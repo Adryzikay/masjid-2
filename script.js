@@ -261,7 +261,7 @@ if (document.querySelector('.solat-cell') || document.getElementById('nextPrayer
   setInterval(fetchTodayPrayerTimes, 60000);
 }
 
-const programPhotos = document.querySelectorAll('#program .cat-grid .cat-photo');
+const programPhotos = document.querySelectorAll('#program .cat-grid > .cat-cell > .cat-photo, #program .cat-grid .cat-photo-pair > .cat-photo:first-child');
 if (programPhotos.length && typeof HTMLDialogElement !== 'undefined') {
   const photoDialog = document.createElement('dialog');
   photoDialog.className = 'program-photo-dialog';
@@ -272,10 +272,32 @@ if (programPhotos.length && typeof HTMLDialogElement !== 'undefined') {
   closePhotoDialog.className = 'program-photo-dialog-close';
   closePhotoDialog.textContent = 'Tutup';
 
+  const photoContent = document.createElement('div');
+  photoContent.className = 'program-photo-dialog-content';
+  const previousPhoto = document.createElement('button');
+  previousPhoto.type = 'button';
+  previousPhoto.className = 'program-photo-dialog-nav';
+  previousPhoto.setAttribute('aria-label', 'Gambar sebelumnya');
+  previousPhoto.textContent = '\u2039';
+  const nextPhoto = document.createElement('button');
+  nextPhoto.type = 'button';
+  nextPhoto.className = 'program-photo-dialog-nav';
+  nextPhoto.setAttribute('aria-label', 'Gambar seterusnya');
+  nextPhoto.textContent = '\u203a';
+
   const expandedPhoto = document.createElement('img');
   expandedPhoto.alt = '';
-  photoDialog.append(closePhotoDialog, expandedPhoto);
+  photoContent.append(previousPhoto, expandedPhoto, nextPhoto);
+  photoDialog.append(closePhotoDialog, photoContent);
   document.body.appendChild(photoDialog);
+
+  let activeGallery = [];
+  let activePhotoIndex = 0;
+  const showPhoto = (index) => {
+    activePhotoIndex = (index + activeGallery.length) % activeGallery.length;
+    expandedPhoto.src = activeGallery[activePhotoIndex].src;
+    expandedPhoto.alt = activeGallery[activePhotoIndex].alt;
+  };
 
   programPhotos.forEach((photo) => {
     const trigger = document.createElement('button');
@@ -285,14 +307,33 @@ if (programPhotos.length && typeof HTMLDialogElement !== 'undefined') {
     trigger.setAttribute('aria-label', `Besarkan gambar: ${programName}`);
     photo.parentNode.insertBefore(trigger, photo);
     trigger.appendChild(photo);
+    const pair = photo.closest('.cat-photo-pair');
+    const gallery = pair ? Array.from(pair.querySelectorAll('.cat-photo')).map((image) => ({
+      src: image.currentSrc || image.src,
+      alt: image.alt
+    })) : [{ src: photo.currentSrc || photo.src, alt: photo.alt }];
+
     trigger.addEventListener('click', () => {
-      expandedPhoto.src = photo.currentSrc || photo.src;
-      expandedPhoto.alt = photo.alt;
+      activeGallery = gallery;
+      showPhoto(0);
+      const hasMultiplePhotos = gallery.length > 1;
+      previousPhoto.hidden = !hasMultiplePhotos;
+      nextPhoto.hidden = !hasMultiplePhotos;
       photoDialog.showModal();
     });
+
+    if (pair) {
+      pair.querySelectorAll('.cat-photo:not(:first-child)').forEach((extraPhoto) => extraPhoto.hidden = true);
+    }
   });
 
   closePhotoDialog.addEventListener('click', () => photoDialog.close());
+  previousPhoto.addEventListener('click', () => showPhoto(activePhotoIndex - 1));
+  nextPhoto.addEventListener('click', () => showPhoto(activePhotoIndex + 1));
+  photoDialog.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowLeft' && !previousPhoto.hidden) showPhoto(activePhotoIndex - 1);
+    if (event.key === 'ArrowRight' && !nextPhoto.hidden) showPhoto(activePhotoIndex + 1);
+  });
   photoDialog.addEventListener('click', (event) => {
     if (event.target === photoDialog) photoDialog.close();
   });

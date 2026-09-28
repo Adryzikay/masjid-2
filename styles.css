@@ -257,14 +257,19 @@
   .cat-photo-trigger:focus-visible{outline:3px solid var(--gold-deep);outline-offset:-3px;}
   .cat-photo-trigger .cat-photo{transition:transform .2s ease;}
   .cat-photo-trigger:hover .cat-photo{transform:scale(1.025);}
-  .cat-photo-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px;overflow:hidden;}
-  .cat-photo-pair .cat-photo-trigger{height:100%;}
-  .cat-photo-pair .cat-photo{aspect-ratio:4/5;}
+  .cat-photo-pair{overflow:hidden;}
+  .cat-photo-pair .cat-photo{aspect-ratio:16/10;}
+  .cat-photo-pair .cat-photo[hidden]{display:none;}
   .program-photo-dialog{position:fixed;inset:0;margin:auto;padding:48px 18px 18px;width:min(92vw,1100px);max-width:none;max-height:90vh;border:1px solid var(--gold);background:var(--cream);box-shadow:0 20px 70px rgba(0,0,0,.35);}
   .program-photo-dialog::backdrop{background:rgba(8,25,19,.82);}
+  .program-photo-dialog-content{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:14px;height:100%;}
   .program-photo-dialog img{max-width:100%;max-height:calc(90vh - 84px);width:auto;height:auto;object-fit:contain;margin:auto;}
   .program-photo-dialog-close{position:absolute;top:9px;right:12px;padding:7px 12px;border:1px solid var(--line);background:var(--paper);color:var(--green-ink);font:inherit;cursor:pointer;}
   .program-photo-dialog-close:hover{background:var(--gold-soft);}
+  .program-photo-dialog-nav{width:44px;height:44px;border:1px solid var(--line);background:var(--paper);color:var(--green-ink);font-size:1.6rem;line-height:1;cursor:pointer;}
+  .program-photo-dialog-nav:hover{background:var(--gold-soft);}
+  .program-photo-dialog-nav[hidden]{display:none;}
+  @media (max-width:520px){.program-photo-dialog{padding:48px 10px 12px;}.program-photo-dialog-content{gap:6px;}.program-photo-dialog-nav{width:36px;height:40px;}}
   .cat-cell-body{padding:22px 24px;min-height:150px;display:flex;flex-direction:column;justify-content:space-between;flex:1;}
   .cat-cell h3{font-size:1.1rem;font-family:'Lora',serif;font-weight:600;}
   .cat-cell p{margin-top:10px;color:var(--ink-soft);font-size:.9rem;}
