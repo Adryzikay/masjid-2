@@ -1,5 +1,19 @@
+const SITE_CONTACTS = {
+  whatsapp: '60132922612',
+  whatsappDisplay: '+60 13-2922 612'
+};
+
 const burger = document.getElementById('burgerBtn');
 const navLinks = document.getElementById('navLinks');
+
+const syncWhatsAppLinks = () => {
+  document.querySelectorAll('[data-wa-link]').forEach((link) => {
+    const num = link.getAttribute('data-wa-link') || SITE_CONTACTS.whatsapp;
+    link.href = `https://wa.me/${num}`;
+  });
+};
+
+syncWhatsAppLinks();
 
 if (burger && navLinks) {
   burger.addEventListener('click', () => navLinks.classList.toggle('open'));
