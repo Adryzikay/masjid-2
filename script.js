@@ -268,12 +268,6 @@ const isQurbanPlaceholder = (photo) => {
 const programPhotos = Array.from(document.querySelectorAll('#program .cat-grid > .cat-cell > .cat-photo, #program .cat-grid .cat-photo-pair > .cat-photo:first-child'))
   .filter((photo) => !isQurbanPlaceholder(photo));
 if (programPhotos.length && typeof HTMLDialogElement !== 'undefined') {
-  const allProgramPhotos = Array.from(document.querySelectorAll('#program .cat-grid .cat-photo'))
-    .filter((photo) => !isQurbanPlaceholder(photo));
-  const programGallery = allProgramPhotos.map((photo) => ({
-    src: photo.currentSrc || photo.src,
-    alt: photo.alt
-  }));
   const photoDialog = document.createElement('dialog');
   photoDialog.className = 'program-photo-dialog';
   photoDialog.setAttribute('aria-label', 'Paparan gambar program');
@@ -321,10 +315,15 @@ if (programPhotos.length && typeof HTMLDialogElement !== 'undefined') {
     const pair = photo.closest('.cat-photo-pair');
 
     trigger.addEventListener('click', () => {
-      activeGallery = programGallery;
-      showPhoto(allProgramPhotos.indexOf(photo));
-      previousPhoto.hidden = programGallery.length < 2;
-      nextPhoto.hidden = programGallery.length < 2;
+      const cardPhotos = Array.from(photo.closest('.cat-cell').querySelectorAll('.cat-photo'))
+        .filter((cardPhoto) => !isQurbanPlaceholder(cardPhoto));
+      activeGallery = cardPhotos.map((cardPhoto) => ({
+        src: cardPhoto.currentSrc || cardPhoto.src,
+        alt: cardPhoto.alt
+      }));
+      showPhoto(cardPhotos.indexOf(photo));
+      previousPhoto.hidden = activeGallery.length < 2;
+      nextPhoto.hidden = activeGallery.length < 2;
       photoDialog.showModal();
     });
 
