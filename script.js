@@ -343,3 +343,32 @@ if (programPhotos.length && typeof HTMLDialogElement !== 'undefined') {
     if (event.target === photoDialog) photoDialog.close();
   });
 }
+
+const qrTrigger = document.querySelector('.qr-image-trigger');
+const qrImage = qrTrigger?.querySelector('.qr-image');
+if (qrTrigger && qrImage && typeof HTMLDialogElement !== 'undefined') {
+  const qrDialog = document.createElement('dialog');
+  qrDialog.className = 'program-photo-dialog qr-photo-dialog';
+  qrDialog.setAttribute('aria-label', 'Paparan QR DuitNow');
+
+  const closeQrDialog = document.createElement('button');
+  closeQrDialog.type = 'button';
+  closeQrDialog.className = 'program-photo-dialog-close';
+  closeQrDialog.textContent = 'Tutup';
+
+  const qrDialogContent = document.createElement('div');
+  qrDialogContent.className = 'qr-photo-dialog-content';
+  const expandedQr = document.createElement('img');
+  expandedQr.className = 'qr-expanded-image';
+  expandedQr.src = qrImage.currentSrc || qrImage.src;
+  expandedQr.alt = qrImage.alt;
+  qrDialogContent.appendChild(expandedQr);
+  qrDialog.append(closeQrDialog, qrDialogContent);
+  document.body.appendChild(qrDialog);
+
+  qrTrigger.addEventListener('click', () => qrDialog.showModal());
+  closeQrDialog.addEventListener('click', () => qrDialog.close());
+  qrDialog.addEventListener('click', (event) => {
+    if (event.target === qrDialog) qrDialog.close();
+  });
+}
