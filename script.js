@@ -261,9 +261,15 @@ if (document.querySelector('.solat-cell') || document.getElementById('nextPrayer
   setInterval(fetchTodayPrayerTimes, 60000);
 }
 
-const programPhotos = document.querySelectorAll('#program .cat-grid > .cat-cell > .cat-photo, #program .cat-grid .cat-photo-pair > .cat-photo:first-child');
+const isQurbanPlaceholder = (photo) => {
+  const cell = photo.closest('.cat-cell');
+  return Boolean(cell?.querySelector('.cat-photo-pair-main') && photo.getAttribute('src')?.startsWith('data:image/svg+xml'));
+};
+const programPhotos = Array.from(document.querySelectorAll('#program .cat-grid > .cat-cell > .cat-photo, #program .cat-grid .cat-photo-pair > .cat-photo:first-child'))
+  .filter((photo) => !isQurbanPlaceholder(photo));
 if (programPhotos.length && typeof HTMLDialogElement !== 'undefined') {
-  const allProgramPhotos = Array.from(document.querySelectorAll('#program .cat-grid .cat-photo'));
+  const allProgramPhotos = Array.from(document.querySelectorAll('#program .cat-grid .cat-photo'))
+    .filter((photo) => !isQurbanPlaceholder(photo));
   const programGallery = allProgramPhotos.map((photo) => ({
     src: photo.currentSrc || photo.src,
     alt: photo.alt

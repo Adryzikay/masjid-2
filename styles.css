@@ -259,7 +259,8 @@
   .cat-photo-trigger:hover .cat-photo{transform:scale(1.025);}
   .cat-photo-pair{overflow:hidden;}
   .cat-photo-pair .cat-photo{aspect-ratio:16/10;}
-  .cat-photo-pair-main{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);aspect-ratio:16/10;gap:2px;background:var(--line);}
+  .cat-photo-pair-main{aspect-ratio:16/10;}
+  .cat-photo-pair-main .cat-photo-trigger{height:100%;}
   .cat-photo-pair-main .cat-photo{height:100%;aspect-ratio:auto;}
   .cat-photo-pair .cat-photo[hidden]{display:none;}
   .cat-grid>.cat-cell:nth-child(2)>img[src^="data:image/svg+xml"]{display:none;}
