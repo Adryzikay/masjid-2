@@ -260,6 +260,7 @@
   .cat-photo-pair{overflow:hidden;}
   .cat-photo-pair .cat-photo{aspect-ratio:16/10;}
   .cat-photo-pair .cat-photo[hidden]{display:none;}
+  .cat-grid>.cat-cell:nth-child(2)>img[src^="data:image/svg+xml"]{display:none;}
   .program-photo-dialog{position:fixed;inset:0;margin:auto;padding:48px 18px 18px;width:min(92vw,1100px);max-width:none;max-height:90vh;border:1px solid var(--gold);background:var(--cream);box-shadow:0 20px 70px rgba(0,0,0,.35);}
   .program-photo-dialog::backdrop{background:rgba(8,25,19,.82);}
   .program-photo-dialog-content{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:14px;height:100%;}
