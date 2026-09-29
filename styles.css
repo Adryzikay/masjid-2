@@ -299,6 +299,7 @@
     display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;color:var(--gold-soft);
     font-size:.85rem;text-align:center;margin-bottom:14px;
   }
+  .qr-box .qr-image{width:100%;height:100%;box-sizing:border-box;object-fit:contain;padding:12px;background:#fff;border-radius:8px;}
   .donate-card ul{margin:0;padding-left:18px;color:#DCE7E0;font-size:.92rem;}
   .donate-card ul li{margin-top:8px;}
   @media (max-width:900px){.donate-grid{grid-template-columns:1fr;}}
