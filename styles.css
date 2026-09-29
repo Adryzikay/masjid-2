@@ -259,6 +259,8 @@
   .cat-photo-trigger:hover .cat-photo{transform:scale(1.025);}
   .cat-photo-pair{overflow:hidden;}
   .cat-photo-pair .cat-photo{aspect-ratio:16/10;}
+  .cat-photo-pair-main{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);aspect-ratio:16/10;gap:2px;background:var(--line);}
+  .cat-photo-pair-main .cat-photo{height:100%;aspect-ratio:auto;}
   .cat-photo-pair .cat-photo[hidden]{display:none;}
   .cat-grid>.cat-cell:nth-child(2)>img[src^="data:image/svg+xml"]{display:none;}
   .program-photo-dialog{position:fixed;inset:0;margin:auto;padding:48px 18px 18px;width:min(92vw,1100px);max-width:none;max-height:90vh;border:1px solid var(--gold);background:var(--cream);box-shadow:0 20px 70px rgba(0,0,0,.35);}
