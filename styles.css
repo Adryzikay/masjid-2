@@ -295,11 +295,11 @@
   .donate-row span:first-child{color:#B9CBC0;}
   .donate-row span:last-child{font-weight:600;text-align:right;}
   .qr-box{
-    aspect-ratio:1;border:1.5px dashed var(--gold);border-radius:60px 60px var(--radius) var(--radius);
+    aspect-ratio:1;border:1.5px dashed var(--gold);border-radius:8px;overflow:hidden;
     display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;color:var(--gold-soft);
     font-size:.85rem;text-align:center;margin-bottom:14px;
   }
-  .qr-box .qr-image{width:100%;height:100%;box-sizing:border-box;object-fit:contain;padding:12px;background:#fff;border-radius:8px;}
+  .qr-box .qr-image{width:auto;height:100%;max-width:none;object-fit:contain;transform:scale(2.35);}
   .donate-card ul{margin:0;padding-left:18px;color:#DCE7E0;font-size:.92rem;}
   .donate-card ul li{margin-top:8px;}
   @media (max-width:900px){.donate-grid{grid-template-columns:1fr;}}
