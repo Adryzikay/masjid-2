@@ -251,8 +251,6 @@
 
   .cat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
   .cat-cell{background:var(--cream);display:flex;flex-direction:column;border-top:3px solid var(--gold);transition:transform .2s ease, box-shadow .2s ease;overflow:hidden;}
-  .cat-grid>.cat-cell:nth-child(3){min-height:220px;}
-  .cat-grid>.cat-cell:nth-child(3)>*{display:none;}
   .cat-cell:hover{transform:translateY(-4px);box-shadow:0 12px 24px -12px rgba(10,51,40,.25);position:relative;z-index:1;}
   .cat-photo{width:100%;aspect-ratio:16/10;object-fit:cover;display:block;background:var(--paper);}
   .cat-photo-trigger{display:block;width:100%;padding:0;border:0;background:transparent;cursor:zoom-in;overflow:hidden;}
