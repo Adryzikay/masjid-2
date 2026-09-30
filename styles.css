@@ -96,7 +96,7 @@
     padding:16px 28px;max-width:1120px;margin:0 auto;
   }
   .brand{display:flex;align-items:center;gap:12px;text-decoration:none;}
-  .brand .logo-image{width:260px;height:58px;max-width:min(300px,70vw);object-fit:fill;flex:none;}
+  .brand .logo-image{width:290px;height:58px;max-width:min(290px,calc(100vw - 92px));object-fit:fill;flex:none;}
   .brand .name{font-family:'Lora',serif;font-weight:600;font-size:1.08rem;color:var(--green-ink);line-height:1.15;}
   .brand .name small{display:block;font-family:'Amiri',serif;font-style:italic;font-weight:400;font-size:.78rem;color:var(--ink-soft);letter-spacing:.02em;}
   nav.links{display:flex;gap:30px;list-style:none;margin:0;padding:0;}
