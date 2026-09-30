@@ -270,7 +270,7 @@
   .committee-officers::before{position:absolute;top:0;left:25%;right:25%;height:2px;background:var(--gold);content:"";}
   .committee-officers::after{position:absolute;top:-28px;left:50%;height:28px;border-left:2px solid var(--gold);content:"";}
   .committee-officers .flow-card{position:relative;}
-  .committee-officers .flow-card::before{position:absolute;top:-19px;left:50%;height:18px;border-left:2px solid var(--gold);content:"";}
+  .committee-officers .flow-card::before{position:absolute;top:-18px;left:50%;height:18px;border-left:2px solid var(--gold);content:"";}
   .flow-section-title{align-self:flex-start;margin:8px 0 14px;color:var(--green-ink);font-family:'Lora',serif;font-size:1.2rem;}
   .bureau-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;width:100%;}
   .bureau-group{min-width:0;overflow:hidden;background:var(--cream);border:1px solid var(--green-deep);border-radius:var(--radius);}
@@ -282,6 +282,7 @@
   .staff-chart>.flow-card,.staff-chart>.flow-connector{align-self:center;}
   .staff-branches{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;width:100%;margin-top:28px;padding-top:22px;}
   .staff-branches::before{content:"";position:absolute;top:0;left:16.66%;right:16.66%;height:1px;background:var(--gold);}
+  .staff-branches::after{content:"";position:absolute;top:-28px;left:50%;height:28px;border-left:1px solid var(--gold);}
   .staff-group,.staff-center{position:relative;min-width:0;}
   .staff-group::before,.staff-center::before{content:"";position:absolute;top:-22px;left:50%;width:1px;height:22px;background:var(--gold);}
   .staff-group h3{margin:0 0 12px;color:var(--green-ink);font-family:'Lora',serif;font-size:1.05rem;text-align:center;}
@@ -294,10 +295,15 @@
   @media (max-width:900px){.bureau-grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
   @media (max-width:760px){
     .committee-officers,.bureau-grid,.staff-branches,.support-grid{grid-template-columns:1fr;}
-    .staff-branches{gap:28px;padding-top:0;}
-    .staff-branches::before,.staff-group::before,.staff-center::before{display:none;}
-    .committee-officers{padding-top:0;}
-    .committee-officers::before,.committee-officers::after,.committee-officers .flow-card::before{display:none;}
+    .staff-branches{gap:24px;margin-top:0;padding:0 0 0 24px;}
+    .staff-branches::before{top:0;bottom:0;left:8px;right:auto;width:2px;height:auto;}
+    .staff-branches::after{display:none;}
+    .staff-group::before,.staff-center::before{top:18px;left:-16px;width:16px;height:1px;background:var(--gold);}
+    .committee-officers{gap:14px;padding:0 0 0 24px;}
+    .committee-officers::before{top:0;bottom:0;left:8px;right:auto;width:2px;height:auto;}
+    .committee-officers::after{top:-28px;left:8px;width:calc(50% - 8px);height:2px;border:0;background:var(--gold);}
+    .committee-officers .flow-card::before{top:50%;left:-17px;width:16px;height:1px;border:0;background:var(--gold);}
+    .committee-officers + .flow-connector::before{position:absolute;top:0;right:50%;width:calc(50% - 8px);height:2px;background:var(--gold);content:"";}
     .flow-heading{margin-top:56px;}
   }
 
