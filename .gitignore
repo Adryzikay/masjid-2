@@ -1,0 +1,11 @@
+# Rahsia — JANGAN sekali-kali commit (service_role / secret key, kata laluan)
+.env
+.env.*
+*.secret
+supabase/.temp/
+supabase/.branches/
+
+# Alatan tempatan
+node_modules/
+.DS_Store
+Thumbs.db

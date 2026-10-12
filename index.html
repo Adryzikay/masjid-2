@@ -79,8 +79,8 @@
         </div>
         <div class="prayer-card">
           <span class="label">Waktu solat seterusnya</span>
-          <div class="next-name" id="nextPrayerName">Zohor</div>
-          <div class="next-time" id="nextPrayerTime">1:23 PM</div>
+          <div class="next-name" id="nextPrayerName">…</div>
+          <div class="next-time" id="nextPrayerTime">Sedang memuatkan</div>
           <div class="countdown">Baki masa: <b id="countdownText">…</b></div>
           <div class="prayer-progress"><div class="prayer-progress-fill" id="prayerProgressFill"></div></div>
         </div>
@@ -95,13 +95,13 @@
 
     <div class="ticker-bar">
       <div class="ticker-tag">Pengumuman</div>
-      <div class="ticker-track">
-        <span>Solat Jumaat bermula jam 1:15 PM, khatib minggu ini: Ustaz Hafiz Rahman.</span>
-        <span>Kelas Tafsir Al-Quran malam Selasa diteruskan selepas solat Isyak di ruang tingkat 2.</span>
-        <span>Kutipan Tabung Pembinaan Menara Azan masih dibuka, sumbangan boleh dibuat melalui DuitNow.</span>
-        <span>Solat Jumaat bermula jam 1:15 PM, khatib minggu ini: Ustaz Hafiz Rahman.</span>
-        <span>Kelas Tafsir Al-Quran malam Selasa diteruskan selepas solat Isyak di ruang tingkat 2.</span>
-        <span>Kutipan Tabung Pembinaan Menara Azan masih dibuka, sumbangan boleh dibuat melalui DuitNow.</span>
+      <div class="ticker-track" data-kandungan="ticker">
+        <span>Selamat datang ke laman rasmi Masjid Jamek Kampong Bharu.</span>
+        <span>Ikuti laman Facebook masjid untuk makluman dan pengumuman terkini.</span>
+        <span>Sumbangan untuk masjid boleh dibuat melalui DuitNow atau pindahan bank.</span>
+        <span>Selamat datang ke laman rasmi Masjid Jamek Kampong Bharu.</span>
+        <span>Ikuti laman Facebook masjid untuk makluman dan pengumuman terkini.</span>
+        <span>Sumbangan untuk masjid boleh dibuat melalui DuitNow atau pindahan bank.</span>
       </div>
     </div>
 
@@ -113,13 +113,15 @@
           <p>Waktu semasa ditanda secara automatik. Lihat jadual penuh dan penjelasan di halaman <a href="solat.html" style="color:var(--green-ink);text-decoration:underline;">Waktu Solat</a>.</p>
         </div>
         <div class="solat-grid" id="solatGrid">
-          <div class="solat-cell" data-name="Subuh"><div class="name">Subuh</div><div class="time">5:58 AM</div></div>
-          <div class="solat-cell" data-name="Syuruk"><div class="name">Syuruk</div><div class="time">7:18 AM</div></div>
-          <div class="solat-cell" data-name="Zohor"><div class="name">Zohor</div><div class="time">1:23 PM</div></div>
-          <div class="solat-cell" data-name="Asar"><div class="name">Asar</div><div class="time">4:44 PM</div></div>
-          <div class="solat-cell" data-name="Maghrib"><div class="name">Maghrib</div><div class="time">7:23 PM</div></div>
-          <div class="solat-cell" data-name="Isyak"><div class="name">Isyak</div><div class="time">8:33 PM</div></div>
+          <div class="solat-cell" data-name="Subuh"><div class="name">Subuh</div><div class="time">–:–</div></div>
+          <div class="solat-cell" data-name="Syuruk"><div class="name">Syuruk</div><div class="time">–:–</div></div>
+          <div class="solat-cell" data-name="Zohor"><div class="name">Zohor</div><div class="time">–:–</div></div>
+          <div class="solat-cell" data-name="Asar"><div class="name">Asar</div><div class="time">–:–</div></div>
+          <div class="solat-cell" data-name="Maghrib"><div class="name">Maghrib</div><div class="time">–:–</div></div>
+          <div class="solat-cell" data-name="Isyak"><div class="name">Isyak</div><div class="time">–:–</div></div>
         </div>
+        <p class="solat-note">Sedang memuatkan waktu solat terkini…</p>
+        <p class="jumaat-info" data-kandungan="jumaat" hidden></p>
       </div>
     </section>
 
@@ -130,20 +132,13 @@
             <span class="kicker">Terkini</span>
             <h2>Pengumuman</h2>
           </div>
-          <div class="list-item">
-            <span class="tag">Khutbah Jumaat</span>
-            <h3>Perubahan khatib minggu ini</h3>
-            <p>Khutbah Jumaat 5 September akan disampaikan oleh Ustaz Hafiz Rahman, menggantikan jadual asal. Solat bermula jam 1:15 petang.</p>
-          </div>
-          <div class="list-item">
-            <span class="tag">Kutipan Derma</span>
-            <h3>Tabung Pembinaan Menara Azan</h3>
-            <p>Sumbangan masih dibuka untuk projek naik taraf menara azan. Lihat butiran penuh di halaman <a href="sumbangan.html" style="color:var(--green-ink);text-decoration:underline;">Sumbangan</a>.</p>
-          </div>
-          <div class="list-item">
-            <span class="tag">Kelas Fardu Ain</span>
-            <h3>Pendaftaran kelas dewasa dibuka</h3>
-            <p>Kelas asas fardu ain untuk golongan dewasa akan bermula bulan depan, dua kali seminggu selepas solat Maghrib.</p>
+          <!-- Diisi oleh kandungan.js dari Supabase. Kandungan di bawah ialah paparan asas jika Supabase tidak dapat dihubungi. -->
+          <div data-kandungan="pengumuman" data-had="6">
+            <div class="list-item">
+              <span class="tag">Makluman</span>
+              <h3>Pengumuman terkini masjid</h3>
+              <p>Pengumuman terkini boleh didapati di papan kenyataan masjid atau di <a href="https://www.facebook.com/masjidjamekg.baru/" target="_blank" rel="noopener">laman Facebook rasmi masjid</a>.</p>
+            </div>
           </div>
         </div>
         <div>
@@ -151,20 +146,8 @@
             <span class="kicker">Jangan lepaskan</span>
             <h2>Aktiviti Akan Datang</h2>
           </div>
-          <div class="program-item">
-            <div class="program-date"><div class="d">05</div><div class="m">Sep</div></div>
-            <img class="program-photo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTAiIGZpbGw9IiNGM0VDREIiLz4KICA8cmVjdCB4PSIxLjUiIHk9IjEuNSIgd2lkdGg9IjYxIiBoZWlnaHQ9IjYxIiByeD0iOC41IiBmaWxsPSJub25lIiBzdHJva2U9IiNDODlCM0MiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWRhc2hhcnJheT0iNSA0Ii8+CiAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzIsMzApIiBmaWxsPSJub25lIiBzdHJva2U9IiM4QTZBMkUiIHN0cm9rZS13aWR0aD0iMi40IiBzdHJva2UtbGluZWpvaW49InJvdW5kIj4KICAgIDxyZWN0IHg9Ii0xMyIgeT0iLTgiIHdpZHRoPSIyNiIgaGVpZ2h0PSIxOSIgcng9IjMiLz4KICAgIDxyZWN0IHg9Ii01IiB5PSItMTIuNSIgd2lkdGg9IjkuNSIgaGVpZ2h0PSI1IiByeD0iMS4yIiBmaWxsPSIjOEE2QTJFIiBzdHJva2U9Im5vbmUiLz4KICAgIDxjaXJjbGUgY3g9IjAiIGN5PSIyIiByPSI2Ii8+CiAgPC9nPgo8L3N2Zz4=" alt="">
-            <div><h3>Kuliah Subuh Mingguan</h3><p>Bersama Ustaz Zulkifli Hassan, di ruang solat utama.</p></div>
-          </div>
-          <div class="program-item">
-            <div class="program-date"><div class="d">12</div><div class="m">Sep</div></div>
-            <img class="program-photo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTAiIGZpbGw9IiNGM0VDREIiLz4KICA8cmVjdCB4PSIxLjUiIHk9IjEuNSIgd2lkdGg9IjYxIiBoZWlnaHQ9IjYxIiByeD0iOC41IiBmaWxsPSJub25lIiBzdHJva2U9IiNDODlCM0MiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWRhc2hhcnJheT0iNSA0Ii8+CiAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzIsMzApIiBmaWxsPSJub25lIiBzdHJva2U9IiM4QTZBMkUiIHN0cm9rZS13aWR0aD0iMi40IiBzdHJva2UtbGluZWpvaW49InJvdW5kIj4KICAgIDxyZWN0IHg9Ii0xMyIgeT0iLTgiIHdpZHRoPSIyNiIgaGVpZ2h0PSIxOSIgcng9IjMiLz4KICAgIDxyZWN0IHg9Ii01IiB5PSItMTIuNSIgd2lkdGg9IjkuNSIgaGVpZ2h0PSI1IiByeD0iMS4yIiBmaWxsPSIjOEE2QTJFIiBzdHJva2U9Im5vbmUiLz4KICAgIDxjaXJjbGUgY3g9IjAiIGN5PSIyIiByPSI2Ii8+CiAgPC9nPgo8L3N2Zz4=" alt="">
-            <div><h3>Ceramah Maulidur Rasul</h3><p>Selepas solat Isyak, terbuka kepada seluruh komuniti Kampong Bharu.</p></div>
-          </div>
-          <div class="program-item">
-            <div class="program-date"><div class="d">20</div><div class="m">Sep</div></div>
-            <img class="program-photo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTAiIGZpbGw9IiNGM0VDREIiLz4KICA8cmVjdCB4PSIxLjUiIHk9IjEuNSIgd2lkdGg9IjYxIiBoZWlnaHQ9IjYxIiByeD0iOC41IiBmaWxsPSJub25lIiBzdHJva2U9IiNDODlCM0MiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWRhc2hhcnJheT0iNSA0Ii8+CiAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzIsMzApIiBmaWxsPSJub25lIiBzdHJva2U9IiM4QTZBMkUiIHN0cm9rZS13aWR0aD0iMi40IiBzdHJva2UtbGluZWpvaW49InJvdW5kIj4KICAgIDxyZWN0IHg9Ii0xMyIgeT0iLTgiIHdpZHRoPSIyNiIgaGVpZ2h0PSIxOSIgcng9IjMiLz4KICAgIDxyZWN0IHg9Ii01IiB5PSItMTIuNSIgd2lkdGg9IjkuNSIgaGVpZ2h0PSI1IiByeD0iMS4yIiBmaWxsPSIjOEE2QTJFIiBzdHJva2U9Im5vbmUiLz4KICAgIDxjaXJjbGUgY3g9IjAiIGN5PSIyIiByPSI2Ii8+CiAgPC9nPgo8L3N2Zz4=" alt="">
-            <div><h3>Gotong-royong & Rumah Terbuka</h3><p>Kerja membersih kawasan masjid, diikuti jamuan ringkas selepas Zohor.</p></div>
+          <div data-kandungan="aktiviti" data-had="3">
+            <p class="kandungan-kosong">Senarai aktiviti akan datang boleh disemak di papan kenyataan masjid atau dengan menghubungi pejabat masjid.</p>
           </div>
           <div style="margin-top:20px;">
             <a href="program.html" class="btn btn-outline-dark">Lihat Semua Program</a>
@@ -185,6 +168,8 @@
     <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.39 1.26 4.81L2 22l5.42-1.35a9.83 9.83 0 0 0 4.62 1.15h.01c5.46 0 9.9-4.45 9.9-9.9C21.95 6.45 17.5 2 12.04 2Zm5.77 14.02c-.24.68-1.4 1.3-1.93 1.35-.5.06-1.06.28-3.55-.74-2.98-1.22-4.9-4.23-5.05-4.43-.15-.2-1.2-1.6-1.2-3.05 0-1.45.76-2.16 1.03-2.46.27-.3.6-.37.8-.37.2 0 .4 0 .58.01.19.01.44-.07.68.53.25.6.85 2.08.92 2.23.07.15.12.33.02.53-.1.2-.15.33-.3.5-.15.18-.32.4-.45.53-.15.15-.31.32-.13.62.18.3.8 1.32 1.72 2.14 1.18 1.06 2.18 1.39 2.48 1.54.3.15.48.13.65-.08.18-.2.76-.9.96-1.2.2-.3.4-.25.68-.15.28.1 1.75.83 2.05.98.3.15.5.22.57.35.08.13.08.75-.16 1.42Z"/></svg>
   </a>
 
+  <script src="config.js"></script>
   <script src="script.js"></script>
+  <script src="kandungan.js"></script>
 </body>
 </html>

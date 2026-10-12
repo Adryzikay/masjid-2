@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <!-- Halaman ini hanya boleh memuatkan skrip dari laman ini sendiri dan hanya berhubung dengan Supabase.
+       Jika projek Supabase menggunakan domain sendiri, tukar https://*.supabase.co di bawah. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' blob: data: https://*.supabase.co; connect-src https://*.supabase.co; base-uri 'none'; form-action 'none'">
+  <title>Panel Admin | Masjid Jamek Kampong Bharu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+</head>
+<body>
+  <header class="atas">
+    <div class="atas-dalam">
+      <a class="jenama" href="#">
+        <span class="jenama-nama">Masjid Jamek Kampong Bharu</span>
+        <span class="jenama-kecil">Panel Admin</span>
+      </a>
+      <button type="button" class="butang butang-kecil" id="logKeluar" hidden>Log Keluar</button>
+    </div>
+  </header>
+
+  <main id="app" class="bekas">
+    <p class="memuat">Sedang memuatkan…</p>
+    <noscript><p class="amaran">Panel ini memerlukan JavaScript. Sila hidupkan JavaScript dalam pelayar anda.</p></noscript>
+  </main>
+
+  <div id="makluman" class="makluman" role="status" aria-live="polite" hidden></div>
+
+  <dialog id="sahkan" class="sahkan">
+    <h2 id="sahkanTajuk"></h2>
+    <p id="sahkanMesej"></p>
+    <div class="sahkan-butang">
+      <button type="button" class="butang butang-bahaya" id="sahkanYa">Ya, padam</button>
+      <button type="button" class="butang butang-biasa" id="sahkanBatal">Batal</button>
+    </div>
+  </dialog>
+
+  <script src="../config.js"></script>
+  <script src="../vendor/supabase.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>
