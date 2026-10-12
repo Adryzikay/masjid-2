@@ -6,9 +6,9 @@
 -- 2. Tukar emel dan nama di bawah, kemudian Run dalam SQL Editor.
 -- =====================================================================
 insert into public.admins (user_id, nama)
-select id, 'NAMA ADMIN DI SINI'
+select id, 'adry'
 from auth.users
-where email = 'emel.admin@contoh.com'
+where email = 'adry.zikayy@gmail.com'
 on conflict (user_id) do update set nama = excluded.nama;
 
 -- Semak siapa admin sekarang:
