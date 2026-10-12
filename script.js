@@ -375,9 +375,12 @@ const isQurbanPlaceholder = (photo) => {
   const cell = photo.closest('.cat-cell');
   return Boolean(cell?.querySelector('.cat-photo-pair-main') && photo.getAttribute('src')?.startsWith('data:image/svg+xml'));
 };
-const programPhotos = Array.from(document.querySelectorAll('#program .cat-grid > .cat-cell > .cat-photo, #program .cat-grid .cat-photo-pair > .cat-photo:first-child'))
-  .filter((photo) => !isQurbanPlaceholder(photo));
-if (programPhotos.length && typeof HTMLDialogElement !== 'undefined') {
+
+// Dialog gambar program dicipta sekali sahaja, pada kali pertama diperlukan
+let programPhotoDialog = null;
+const getProgramPhotoDialog = () => {
+  if (programPhotoDialog) return programPhotoDialog;
+
   const photoDialog = document.createElement('dialog');
   photoDialog.className = 'program-photo-dialog';
   photoDialog.setAttribute('aria-label', 'Paparan gambar program');
@@ -393,12 +396,12 @@ if (programPhotos.length && typeof HTMLDialogElement !== 'undefined') {
   previousPhoto.type = 'button';
   previousPhoto.className = 'program-photo-dialog-nav';
   previousPhoto.setAttribute('aria-label', 'Gambar sebelumnya');
-  previousPhoto.textContent = '\u2039';
+  previousPhoto.textContent = '‹';
   const nextPhoto = document.createElement('button');
   nextPhoto.type = 'button';
   nextPhoto.className = 'program-photo-dialog-nav';
   nextPhoto.setAttribute('aria-label', 'Gambar seterusnya');
-  nextPhoto.textContent = '\u203a';
+  nextPhoto.textContent = '›';
 
   const expandedPhoto = document.createElement('img');
   expandedPhoto.alt = '';
@@ -414,6 +417,37 @@ if (programPhotos.length && typeof HTMLDialogElement !== 'undefined') {
     expandedPhoto.alt = activeGallery[activePhotoIndex].alt;
   };
 
+  closePhotoDialog.addEventListener('click', () => photoDialog.close());
+  previousPhoto.addEventListener('click', () => showPhoto(activePhotoIndex - 1));
+  nextPhoto.addEventListener('click', () => showPhoto(activePhotoIndex + 1));
+  photoDialog.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowLeft' && !previousPhoto.hidden) showPhoto(activePhotoIndex - 1);
+    if (event.key === 'ArrowRight' && !nextPhoto.hidden) showPhoto(activePhotoIndex + 1);
+  });
+  photoDialog.addEventListener('click', (event) => {
+    if (event.target === photoDialog) photoDialog.close();
+  });
+
+  programPhotoDialog = {
+    open(gallery, index) {
+      activeGallery = gallery;
+      showPhoto(index);
+      previousPhoto.hidden = activeGallery.length < 2;
+      nextPhoto.hidden = activeGallery.length < 2;
+      photoDialog.showModal();
+    }
+  };
+  return programPhotoDialog;
+};
+
+// Jadikan gambar pertama setiap kad program boleh diklik untuk dibesarkan.
+// Selamat dipanggil berulang kali — kandungan.js memanggilnya semula selepas
+// kad program dimuatkan dari Supabase.
+const wireProgramPhotos = () => {
+  if (typeof HTMLDialogElement === 'undefined') return;
+  const programPhotos = Array.from(document.querySelectorAll('#program .cat-grid > .cat-cell > .cat-photo, #program .cat-grid .cat-photo-pair > .cat-photo:first-child'))
+    .filter((photo) => !isQurbanPlaceholder(photo));
+
   programPhotos.forEach((photo) => {
     const trigger = document.createElement('button');
     trigger.type = 'button';
@@ -427,32 +461,20 @@ if (programPhotos.length && typeof HTMLDialogElement !== 'undefined') {
     trigger.addEventListener('click', () => {
       const cardPhotos = Array.from(photo.closest('.cat-cell').querySelectorAll('.cat-photo'))
         .filter((cardPhoto) => !isQurbanPlaceholder(cardPhoto));
-      activeGallery = cardPhotos.map((cardPhoto) => ({
+      const gallery = cardPhotos.map((cardPhoto) => ({
         src: cardPhoto.currentSrc || cardPhoto.src,
         alt: cardPhoto.alt
       }));
-      showPhoto(cardPhotos.indexOf(photo));
-      previousPhoto.hidden = activeGallery.length < 2;
-      nextPhoto.hidden = activeGallery.length < 2;
-      photoDialog.showModal();
+      getProgramPhotoDialog().open(gallery, cardPhotos.indexOf(photo));
     });
 
     if (pair) {
       pair.querySelectorAll('.cat-photo:not(:first-child)').forEach((extraPhoto) => extraPhoto.hidden = true);
     }
   });
-
-  closePhotoDialog.addEventListener('click', () => photoDialog.close());
-  previousPhoto.addEventListener('click', () => showPhoto(activePhotoIndex - 1));
-  nextPhoto.addEventListener('click', () => showPhoto(activePhotoIndex + 1));
-  photoDialog.addEventListener('keydown', (event) => {
-    if (event.key === 'ArrowLeft' && !previousPhoto.hidden) showPhoto(activePhotoIndex - 1);
-    if (event.key === 'ArrowRight' && !nextPhoto.hidden) showPhoto(activePhotoIndex + 1);
-  });
-  photoDialog.addEventListener('click', (event) => {
-    if (event.target === photoDialog) photoDialog.close();
-  });
-}
+};
+wireProgramPhotos();
+window.MJKB = { wireProgramPhotos };
 
 const qrTrigger = document.querySelector('.qr-image-trigger');
 const qrImage = qrTrigger?.querySelector('.qr-image');

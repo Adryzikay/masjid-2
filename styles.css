@@ -461,3 +461,24 @@
   .copy-btn:hover{background:rgba(250,246,236,.12);border-color:var(--gold);}
   .copy-btn.copied{background:var(--gold);color:var(--green-ink);border-color:var(--gold);}
   .donate-row .acc-wrap{display:flex;align-items:center;flex-wrap:wrap;justify-content:flex-end;gap:2px;}
+
+  /* Kandungan dinamik dari Supabase (kandungan.js) */
+  .list-item p,.program-item p,.cat-cell p,.list-item h3,.program-item h3,.cat-cell h3{overflow-wrap:anywhere;}
+  .list-item p{white-space:pre-line;}
+  .list-item p a,.program-item p a{color:var(--green-ink);text-decoration:underline;}
+  .program-item p strong{color:var(--ink);font-weight:600;}
+  .kandungan-kosong{margin:0;padding:18px 22px;border:1px dashed var(--gold);border-radius:var(--radius);color:var(--ink-soft);font-size:.92rem;background:var(--paper);}
+  .jumaat-info{margin:14px 0 0;padding:14px 18px;border-left:3px solid var(--gold);background:var(--cream);color:var(--ink);font-size:.95rem;overflow-wrap:anywhere;}
+  .jumaat-info[hidden]{display:none;}
+  .jumaat-info strong{color:var(--green-ink);}
+  .cat-grid.cat-grid-dinamik{grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px;background:transparent;border:0;}
+  .cat-grid-dinamik .cat-cell{border:1px solid var(--line);border-top:3px solid var(--gold);}
+  .kuliah-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px;}
+  .kuliah-hari{background:var(--cream);border:1px solid var(--line);border-top:3px solid var(--gold);border-radius:var(--radius);padding:20px 22px;}
+  .kuliah-hari.hari-ini{background:var(--paper);border-color:var(--gold);}
+  .kuliah-hari h3{display:flex;align-items:baseline;justify-content:space-between;gap:10px;font-size:1.15rem;}
+  .kuliah-hari h3 small{font-family:'Amiri',serif;font-style:italic;font-weight:700;font-size:.88rem;color:var(--gold-deep);}
+  .kuliah-item{margin-top:14px;padding-top:14px;border-top:1px solid var(--line);overflow-wrap:anywhere;}
+  .kuliah-item .waktu{font-family:'Amiri',serif;font-style:italic;font-weight:700;font-size:.9rem;color:var(--gold-deep);}
+  .kuliah-item .tajuk{margin-top:2px;font-weight:600;color:var(--ink);}
+  .kuliah-item .butiran{margin-top:2px;color:var(--ink-soft);font-size:.9rem;}
