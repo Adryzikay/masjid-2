@@ -1,0 +1,54 @@
+# Projek Supabase pelan percuma dijeda selepas ~7 hari tanpa aktiviti.
+# Workflow ini membuat satu bacaan kecil setiap 3 hari supaya projek kekal aktif.
+#
+# Secrets yang diperlukan (Settings > Secrets and variables > Actions):
+#   SUPABASE_URL              cth. https://abcdefgh.supabase.co
+#   SUPABASE_PUBLISHABLE_KEY  publishable key (sb_publishable_…) — BUKAN secret/service_role key
+name: Supabase keep-alive
+
+on:
+  schedule:
+    - cron: '17 3 */3 * *' # 11:17 pagi waktu Malaysia, setiap 3 hari
+  workflow_dispatch:
+
+permissions:
+  actions: write # hanya untuk langkah "kekalkan jadual" di bawah
+  contents: read
+
+concurrency:
+  group: supabase-keepalive
+  cancel-in-progress: true
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Baca satu baris dari Supabase
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_PUBLISHABLE_KEY: ${{ secrets.SUPABASE_PUBLISHABLE_KEY }}
+        run: |
+          set -euo pipefail
+          if [ -z "${SUPABASE_URL}" ] || [ -z "${SUPABASE_PUBLISHABLE_KEY}" ]; then
+            echo "::error::Secrets SUPABASE_URL / SUPABASE_PUBLISHABLE_KEY belum ditetapkan."
+            exit 1
+          fi
+          status=$(curl --silent --show-error --output /tmp/respons.json --write-out '%{http_code}' \
+            --retry 3 --retry-delay 20 --retry-all-errors --max-time 30 \
+            --header "apikey: ${SUPABASE_PUBLISHABLE_KEY}" \
+            "${SUPABASE_URL%/}/rest/v1/tetapan?select=kunci&limit=1")
+          echo "Status HTTP: ${status}"
+          if [ "${status}" != "200" ]; then
+            echo "::error::Supabase menjawab ${status}. Jika projek sudah dijeda, buka papan pemuka Supabase dan tekan Restore."
+            head -c 500 /tmp/respons.json || true
+            exit 1
+          fi
+
+      # GitHub mematikan workflow berjadual selepas 60 hari tanpa aktiviti dalam
+      # repo. Mengaktifkannya semula melalui API menetapkan semula kiraan itu.
+      - name: Kekalkan jadual workflow ini aktif
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api --method PUT "repos/${{ github.repository }}/actions/workflows/keepalive.yml/enable"
