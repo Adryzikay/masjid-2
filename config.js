@@ -11,8 +11,8 @@
 // Selagi dua nilai di bawah kosong, laman awam memaparkan kandungan asas
 // (fallback) dan panel admin tidak boleh digunakan.
 window.MASJID_CONFIG = {
-  supabaseUrl: '',
-  supabaseKey: '',
+  supabaseUrl: 'https://ywdqcuxgwjfaozsiyjnw.supabase.co',
+  supabaseKey: 'sb_publishable_ISrVCEx7ujMpSX8ZOZqBEg_EhlrgsTN',
   // Kod zon e-Solat JAKIM. WLY01 = Kuala Lumpur & Putrajaya.
   zonSolat: 'WLY01'
 };
