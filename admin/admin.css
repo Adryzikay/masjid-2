@@ -107,6 +107,8 @@ input[type="text"],input[type="email"],input[type="password"],input[type="date"]
 }
 textarea{min-height:130px;resize:vertical;}
 input:focus,textarea:focus,select:focus{border-color:var(--green-deep);}
+.baris-kata-laluan{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center;}
+.butang-tunjuk-kata{min-height:52px;padding:10px 14px;}
 .semak{display:flex;align-items:flex-start;gap:12px;padding:14px;background:#fff;border:2px solid var(--line);border-radius:var(--radius);cursor:pointer;}
 .semak input{flex:none;width:26px;height:26px;margin:0;accent-color:var(--green-deep);}
 .semak span{font-weight:600;}

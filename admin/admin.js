@@ -356,12 +356,25 @@
   const paparLogMasuk = () => {
     const emel = el('input', { type: 'email', id: 'emel', autocomplete: 'username', required: true, inputmode: 'email', autocapitalize: 'none' });
     const kata = el('input', { type: 'password', id: 'kata', autocomplete: 'current-password', required: true });
+    const butangTunjukKata = el('button', {
+      type: 'button', class: 'butang butang-biasa butang-tunjuk-kata', text: 'Tunjuk',
+      'aria-label': 'Tunjuk kata laluan', 'aria-pressed': 'false'
+    });
+    butangTunjukKata.addEventListener('click', () => {
+      const tunjukKata = kata.type === 'password';
+      kata.type = tunjukKata ? 'text' : 'password';
+      butangTunjukKata.textContent = tunjukKata ? 'Sorok' : 'Tunjuk';
+      butangTunjukKata.setAttribute('aria-label', `${tunjukKata ? 'Sorok' : 'Tunjuk'} kata laluan`);
+      butangTunjukKata.setAttribute('aria-pressed', String(tunjukKata));
+      kata.focus();
+    });
     const ingat = el('input', { type: 'checkbox', id: 'ingatSaya' });
     ingat.checked = ingatSaya;
     const butang = el('button', { type: 'submit', class: 'butang butang-utama butang-penuh', text: 'Log Masuk' });
     const borang = el('form', { class: 'borang', novalidate: true },
       el('div', { class: 'medan' }, el('label', { for: 'emel', text: 'Emel' }), emel),
-      el('div', { class: 'medan' }, el('label', { for: 'kata', text: 'Kata laluan' }), kata),
+      el('div', { class: 'medan' }, el('label', { for: 'kata', text: 'Kata laluan' }),
+        el('div', { class: 'baris-kata-laluan' }, kata, butangTunjukKata)),
       el('label', { class: 'semak', for: 'ingatSaya' }, ingat, el('span', { text: 'Ingat saya pada peranti ini' })),
       butang
     );
