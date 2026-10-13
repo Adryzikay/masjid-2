@@ -94,6 +94,18 @@ Maklumat ini dipaparkan di bawah jadual waktu solat.
 
 Kemas kini nama khatib setiap minggu. Jika maklumat belum ada, kosongkan petak itu; petak kosong tidak dipaparkan.
 
+## Carta Organisasi
+
+Menu ini membolehkan anda mengubah struktur carta, kumpulan, jawatan dan nama ahli.
+
+1. Tekan **Carta Organisasi**.
+2. Ubah tajuk kumpulan atau jawatan dan nama ahli.
+3. Tekan **＋ Tambah kumpulan** untuk menambah lajur/kumpulan, atau **＋ Tambah jawatan / ahli** untuk menambah ahli dalam kumpulan.
+4. Tekan **Buang ahli** atau **Buang kumpulan** untuk memadamnya daripada carta.
+5. Tekan **Simpan perubahan**. Perubahan akan dipaparkan pada halaman Carta Organisasi.
+
+Kumpulan atau ahli yang dipadam akan hilang selepas perubahan disimpan dan tidak boleh dipulihkan melalui panel.
+
 ## Waktu solat
 
 **Tidak perlu diisi.** Waktu solat diambil secara automatik setiap hari daripada e-Solat JAKIM bagi zon Kuala Lumpur.
@@ -105,7 +117,7 @@ Kemas kini nama khatib setiap minggu. Jika maklumat belum ada, kosongkan petak i
 
 ## Perkara yang tidak boleh diubah di sini
 
-Nombor akaun bank, kod QR DuitNow, alamat, nombor telefon dan carta organisasi **tidak** boleh diubah melalui panel admin. Ini disengajakan demi keselamatan sumbangan jemaah. Jika maklumat itu perlu ditukar, hubungi penyelenggara laman web.
+Nombor akaun bank, kod QR DuitNow, alamat dan nombor telefon **tidak** boleh diubah melalui panel admin. Ini disengajakan demi keselamatan sumbangan jemaah. Jika maklumat itu perlu ditukar, hubungi penyelenggara laman web.
 
 ## Jika ada masalah
 

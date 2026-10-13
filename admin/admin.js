@@ -402,6 +402,7 @@
       el('p', { class: 'pengenalan', text: 'Pilih apa yang ingin dikemas kini.' }),
       el('div', { class: 'jubin-grid' },
         Object.entries(MODUL).map(([kunci, m]) => jubin(`#${kunci}`, m.ikon, m.tajuk, m.perihal)),
+        jubin('#carta', '🧑‍🤝‍🧑', 'Carta Organisasi', 'Ubah kumpulan, jawatan & nama'),
         jubin('#jumaat', '🕌', 'Solat Jumaat', 'Waktu, khatib & tajuk khutbah'),
         jubin('../index.html', '🌐', 'Lihat Laman Web', 'Buka laman awam di tab baharu', true),
         jubin('#kata-laluan', '🔑', 'Tukar Kata Laluan', 'Tukar kata laluan akaun anda')
@@ -688,6 +689,120 @@
     );
   };
 
+  // ---------- Paparan: struktur Carta Organisasi ----------
+  const SEKSYEN_CARTA = [['ajk', 'Ahli Jawatankuasa'], ['kakitangan', 'Kakitangan']];
+
+  const cartaObjekSah = (struktur) => struktur && typeof struktur === 'object'
+    && Array.isArray(struktur.ajk) && Array.isArray(struktur.kakitangan)
+    && [...struktur.ajk, ...struktur.kakitangan].every((kumpulan) =>
+      kumpulan && typeof kumpulan.tajuk === 'string' && Array.isArray(kumpulan.ahli)
+      && kumpulan.ahli.every((ahli) => ahli && typeof ahli.jawatan === 'string' && typeof ahli.nama === 'string'));
+
+  const paparCarta = async () => {
+    tunjuk(el('p', { class: 'memuat', text: 'Sedang memuatkan…' }));
+    const { data, error } = await sb.from('carta_struktur').select('struktur').eq('id', 'utama').maybeSingle();
+    if (location.hash !== '#carta') return;
+    if (error || !data || !cartaObjekSah(data.struktur)) {
+      tunjuk(el('a', { class: 'kembali', href: '#', text: '← Menu utama' }),
+        el('p', { class: 'amaran', text: error ? terjemahRalat(error) : 'Struktur carta tidak dapat dimuatkan.' }));
+      return;
+    }
+
+    const struktur = data.struktur;
+    const editor = el('div');
+    const butangSimpan = el('button', { type: 'submit', class: 'butang butang-utama butang-penuh', text: 'Simpan perubahan' });
+    const borang = el('form', { class: 'borang', novalidate: true });
+
+    const lukisEditor = () => {
+      editor.replaceChildren(...SEKSYEN_CARTA.map(([bahagian, tajuk]) => {
+        const kumpulan = struktur[bahagian];
+        const tambahKumpulan = el('button', {
+          type: 'button', class: 'butang butang-biasa', text: '+ Tambah kumpulan',
+          onclick: () => { kumpulan.push({ tajuk: '', ahli: [{ jawatan: '', nama: '' }] }); lukisEditor(); }
+        });
+        return el('section', { class: 'bahagian-carta' },
+          el('h2', { text: tajuk }),
+          kumpulan.map((item, indeksKumpulan) => {
+            const medanTajuk = el('input', {
+              type: 'text', maxlength: 120, required: true, value: item.tajuk,
+              'aria-label': `Nama kumpulan ${indeksKumpulan + 1} (${tajuk})`,
+              oninput: (e) => { item.tajuk = e.target.value; }
+            });
+            return el('section', { class: 'carta-editor-kumpulan' },
+              el('div', { class: 'carta-editor-atas' },
+                el('div', { class: 'medan' }, el('label', { text: 'Nama kumpulan / lajur' }), medanTajuk),
+                el('button', {
+                  type: 'button', class: 'butang butang-bahaya-lembut', text: 'Buang kumpulan',
+                  onclick: () => { kumpulan.splice(indeksKumpulan, 1); lukisEditor(); }
+                })
+              ),
+              item.ahli.map((ahli, indeksAhli) => {
+                const jawatan = el('input', {
+                  type: 'text', maxlength: 120, required: true, value: ahli.jawatan,
+                  'aria-label': `Jawatan ahli ${indeksAhli + 1} dalam ${item.tajuk || tajuk}`,
+                  oninput: (e) => { ahli.jawatan = e.target.value; }
+                });
+                const nama = el('input', {
+                  type: 'text', maxlength: 160, required: true, value: ahli.nama,
+                  'aria-label': `Nama ahli ${indeksAhli + 1} dalam ${item.tajuk || tajuk}`,
+                  oninput: (e) => { ahli.nama = e.target.value; }
+                });
+                return el('div', { class: 'carta-editor-ahli' },
+                  el('div', { class: 'medan' }, el('label', { text: 'Jawatan' }), jawatan),
+                  el('div', { class: 'medan' }, el('label', { text: 'Nama' }), nama),
+                  el('button', {
+                    type: 'button', class: 'butang butang-bahaya-lembut', text: 'Buang ahli',
+                    onclick: () => { item.ahli.splice(indeksAhli, 1); lukisEditor(); }
+                  })
+                );
+              }),
+              el('button', {
+                type: 'button', class: 'butang butang-biasa', text: '+ Tambah jawatan / ahli',
+                onclick: () => { item.ahli.push({ jawatan: '', nama: '' }); lukisEditor(); }
+              })
+            );
+          }),
+          tambahKumpulan
+        );
+      }));
+    };
+
+    lukisEditor();
+    borang.append(editor, el('div', { class: 'borang-butang' }, butangSimpan,
+      el('a', { class: 'butang butang-biasa butang-penuh', href: '#', text: 'Batal' })));
+    borang.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const tidakSah = SEKSYEN_CARTA.some(([bahagian]) => struktur[bahagian].some((kumpulan) =>
+        !kumpulan.tajuk.trim() || !kumpulan.ahli.length || kumpulan.ahli.some((ahli) => !ahli.jawatan.trim() || !ahli.nama.trim())));
+      if (tidakSah) {
+        maklum('Lengkapkan tajuk kumpulan, jawatan dan nama. Buang kumpulan atau ahli yang tidak diperlukan.', true);
+        return;
+      }
+      SEKSYEN_CARTA.forEach(([bahagian]) => struktur[bahagian].forEach((kumpulan) => {
+        kumpulan.tajuk = kumpulan.tajuk.trim();
+        kumpulan.ahli.forEach((ahli) => {
+          ahli.jawatan = ahli.jawatan.trim();
+          ahli.nama = ahli.nama.trim();
+        });
+      }));
+      try {
+        await sibuk(butangSimpan, 'Sedang menyimpan…', async () => {
+          semak(await sb.from('carta_struktur').upsert({ id: 'utama', struktur }, { onConflict: 'id' }).select('id'));
+        });
+        maklum('Carta berjaya disimpan.');
+        location.hash = '';
+      } catch (err) {
+        maklum(terjemahRalat(err), true);
+      }
+    });
+    tunjuk(
+      el('a', { class: 'kembali', href: '#', text: '← Menu utama' }),
+      el('h1', { text: 'Carta Organisasi' }),
+      el('p', { class: 'pengenalan', text: 'Ubah nama kumpulan, jawatan dan ahli. Tambah atau buang kumpulan dan ahli, kemudian simpan.' }),
+      borang
+    );
+  };
+
   // ---------- Penghala ----------
   const papar = () => {
     if (!pengguna) return paparLogMasuk();
@@ -696,6 +811,7 @@
 
     const [bahagian, id] = location.hash.replace(/^#\/?/, '').split('/');
     if (!bahagian) return paparUtama();
+    if (bahagian === 'carta') return paparCarta();
     if (bahagian === 'jumaat') return paparJumaat();
     if (bahagian === 'kata-laluan') return paparKataLaluan(false);
     if (Object.prototype.hasOwnProperty.call(MODUL, bahagian)) {

@@ -50,9 +50,11 @@ In the Supabase dashboard open **SQL Editor**. For each file, paste its whole co
 1. `supabase/migrations/0001_jadual.sql`
 2. `supabase/migrations/0002_keselamatan_rls.sql`
 3. `supabase/migrations/0003_storan_gambar.sql`
-4. Optional: `supabase/seed.sql`. Part A adds the four real annual programmes that are already on the site. Part B adds clearly marked sample items for testing; delete those in the admin panel before announcing the site.
+4. `supabase/migrations/0004_carta_organisasi.sql`
+5. `supabase/migrations/0005_struktur_carta.sql`
+6. Optional: `supabase/seed.sql`. Part A adds the four real annual programmes that are already on the site. Part B adds clearly marked sample items for testing; delete those in the admin panel before announcing the site.
 
-Each should end with "Success". `0002` and `0003` are safe to run again; `0001` is not (it creates the tables).
+Each should end with "Success". `0002` and `0003` are safe to run again; `0001`, `0004` and `0005` are not (they create or migrate tables).
 
 ### 3. Lock down sign-ups
 

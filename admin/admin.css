@@ -94,6 +94,11 @@ a{color:var(--green-ink);}
 .borang{display:flex;flex-direction:column;gap:20px;margin-top:20px;}
 .medan label,.medan .label{display:block;font-weight:700;color:var(--green-ink);margin-bottom:6px;}
 .medan .bantuan{display:block;color:var(--ink-soft);font-size:.9rem;margin-top:6px;}
+.bahagian-carta{display:flex;flex-direction:column;gap:14px;}
+.bahagian-carta h2{margin:0;color:var(--green-ink);font-size:1.2rem;}
+.carta-editor-kumpulan{display:flex;flex-direction:column;gap:14px;padding:16px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);}
+.carta-editor-atas{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:end;}
+.carta-editor-ahli{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr) auto;gap:10px;align-items:end;padding:12px 0;border-top:1px solid var(--line);}
 .wajib{color:var(--bahaya);}
 input[type="text"],input[type="email"],input[type="password"],input[type="date"],textarea,select{
   display:block;width:100%;min-height:52px;padding:12px 14px;
@@ -106,6 +111,7 @@ input:focus,textarea:focus,select:focus{border-color:var(--green-deep);}
 .semak input{flex:none;width:26px;height:26px;margin:0;accent-color:var(--green-deep);}
 .semak span{font-weight:600;}
 .borang-butang{display:flex;flex-direction:column;gap:10px;margin-top:8px;}
+@media (max-width:560px){.carta-editor-atas,.carta-editor-ahli{grid-template-columns:1fr;}.carta-editor-atas .butang,.carta-editor-ahli .butang{justify-self:start;}}
 
 /* Gambar */
 .gambar-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;margin-bottom:10px;}
