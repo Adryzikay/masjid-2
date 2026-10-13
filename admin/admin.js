@@ -127,8 +127,22 @@
     );
     return;
   }
+  const AUTH_STORAGE_KEY = 'mjkb-admin-auth-v1';
+  const AUTH_INGAT_KEY = 'mjkb:admin:ingat-saya';
+  let ingatSaya = localStorage.getItem(AUTH_INGAT_KEY) === 'ya';
+  const authStorage = {
+    getItem: async (kunci) => (ingatSaya ? localStorage.getItem(kunci) : null),
+    setItem: async (kunci, nilai) => {
+      if (ingatSaya) localStorage.setItem(kunci, nilai);
+      else localStorage.removeItem(kunci);
+    },
+    removeItem: async (kunci) => localStorage.removeItem(kunci)
+  };
   const sb = window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseKey, {
-    auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: false }
+    auth: {
+      persistSession: true, autoRefreshToken: true, detectSessionInUrl: false,
+      storage: authStorage, storageKey: AUTH_STORAGE_KEY
+    }
   });
 
   const urlGambar = (laluan) => {
@@ -316,10 +330,13 @@
   const paparLogMasuk = () => {
     const emel = el('input', { type: 'email', id: 'emel', autocomplete: 'username', required: true, inputmode: 'email', autocapitalize: 'none' });
     const kata = el('input', { type: 'password', id: 'kata', autocomplete: 'current-password', required: true });
+    const ingat = el('input', { type: 'checkbox', id: 'ingatSaya' });
+    ingat.checked = ingatSaya;
     const butang = el('button', { type: 'submit', class: 'butang butang-utama butang-penuh', text: 'Log Masuk' });
     const borang = el('form', { class: 'borang', novalidate: true },
       el('div', { class: 'medan' }, el('label', { for: 'emel', text: 'Emel' }), emel),
       el('div', { class: 'medan' }, el('label', { for: 'kata', text: 'Kata laluan' }), kata),
+      el('label', { class: 'semak', for: 'ingatSaya' }, ingat, el('span', { text: 'Ingat saya pada peranti ini' })),
       butang
     );
     borang.addEventListener('submit', async (e) => {
@@ -327,6 +344,12 @@
       if (!emel.value.trim() || !kata.value) { maklum('Sila isi emel dan kata laluan.', true); return; }
       try {
         await sibuk(butang, 'Sedang log masuk…', async () => {
+          ingatSaya = ingat.checked;
+          if (ingatSaya) localStorage.setItem(AUTH_INGAT_KEY, 'ya');
+          else {
+            localStorage.removeItem(AUTH_INGAT_KEY);
+            localStorage.removeItem(AUTH_STORAGE_KEY);
+          }
           const { data, error } = await sb.auth.signInWithPassword({ email: emel.value.trim(), password: kata.value });
           if (error) throw error;
           await tetapkanSesi(data.session);
