@@ -12,7 +12,7 @@ Panduan ini untuk petugas masjid yang mengemas kini laman web. Semuanya boleh di
 
 1. Buka alamat panel admin.
 2. Taip emel dan kata laluan, kemudian tekan **Log Masuk**.
-3. Tanda **Ingat saya pada peranti ini** jika mahu kekal log masuk apabila membuka panel lagi. Jika tidak ditanda, anda perlu log masuk semula apabila panel dibuka atau dimuat semula.
+3. Tanda **Ingat saya pada peranti ini** jika mahu kekal log masuk apabila membuka panel lagi. Jika tidak ditanda, sesi hanya kekal dalam tab itu; membuka pautan **Log Masuk Admin** di tab lain akan log keluar tab panel sebelumnya.
 4. **Kali pertama sahaja:** anda akan diminta menukar kata laluan sementara. Pilih kata laluan sendiri, sekurang-kurangnya 10 aksara, dan jangan guna kata laluan yang sama dengan Facebook atau emel.
 
 Selepas log masuk, anda akan nampak menu utama dengan butang-butang besar.

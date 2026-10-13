@@ -149,6 +149,27 @@
       storage: authStorage, storageKey: AUTH_STORAGE_KEY
     }
   });
+  const AUTH_TAB_EVENT = 'mjkb-admin-session-event';
+  const saluranTab = typeof BroadcastChannel === 'function' ? new BroadcastChannel(AUTH_TAB_EVENT) : null;
+  const logKeluarTabLama = () => {
+    if (!ingatSaya) sb.auth.signOut({ scope: 'local' }).catch(() => {});
+  };
+  if (saluranTab) {
+    saluranTab.addEventListener('message', (e) => {
+      if (e.data === 'login-baharu') logKeluarTabLama();
+    });
+  } else {
+    window.addEventListener('storage', (e) => {
+      if (e.key === AUTH_TAB_EVENT) logKeluarTabLama();
+    });
+  }
+  if (!ingatSaya && pautanLogMasuk) {
+    sessionStorage.removeItem(AUTH_STORAGE_KEY);
+    if (saluranTab) saluranTab.postMessage('login-baharu');
+    else {
+      try { localStorage.setItem(AUTH_TAB_EVENT, String(Date.now() + Math.random())); } catch (err) { /* storage mungkin disekat */ }
+    }
+  }
 
   const urlGambar = (laluan) => {
     if (typeof laluan !== 'string' || laluan.includes('..')) return null;
