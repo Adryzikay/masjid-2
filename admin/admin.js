@@ -130,13 +130,18 @@
   const AUTH_STORAGE_KEY = 'mjkb-admin-auth-v1';
   const AUTH_INGAT_KEY = 'mjkb:admin:ingat-saya';
   let ingatSaya = localStorage.getItem(AUTH_INGAT_KEY) === 'ya';
+  const pautanLogMasuk = new URLSearchParams(location.search).get('login') === '1';
+  if (!ingatSaya && pautanLogMasuk) sessionStorage.removeItem(AUTH_STORAGE_KEY);
   const authStorage = {
-    getItem: async (kunci) => (ingatSaya ? localStorage.getItem(kunci) : null),
+    getItem: async (kunci) => (ingatSaya ? localStorage.getItem(kunci) : sessionStorage.getItem(kunci)),
     setItem: async (kunci, nilai) => {
       if (ingatSaya) localStorage.setItem(kunci, nilai);
-      else localStorage.removeItem(kunci);
+      else sessionStorage.setItem(kunci, nilai);
     },
-    removeItem: async (kunci) => localStorage.removeItem(kunci)
+    removeItem: async (kunci) => {
+      localStorage.removeItem(kunci);
+      sessionStorage.removeItem(kunci);
+    }
   };
   const sb = window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseKey, {
     auth: {
@@ -349,6 +354,7 @@
           else {
             localStorage.removeItem(AUTH_INGAT_KEY);
             localStorage.removeItem(AUTH_STORAGE_KEY);
+            sessionStorage.removeItem(AUTH_STORAGE_KEY);
           }
           const { data, error } = await sb.auth.signInWithPassword({ email: emel.value.trim(), password: kata.value });
           if (error) throw error;
