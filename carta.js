@@ -22,17 +22,18 @@
     return node;
   };
 
-  const lukisKumpulan = (kumpulan) => {
-    const kad = el('section', 'bureau-group');
-    kad.append(el('h4', null, kumpulan.tajuk));
-    const senarai = el('ul');
-    kumpulan.ahli.forEach((ahli) => {
-      const baris = el('li');
-      baris.append(el('div', 'flow-role', ahli.jawatan), el('div', 'flow-name', ahli.nama));
-      senarai.append(baris);
+  const lukisKumpulan = (kumpulan, utama = false) => {
+    const bahagian = el('section', utama ? 'flow-data-group flow-data-root' : 'flow-data-group flow-data-branch');
+    bahagian.append(el('h3', 'flow-data-title', kumpulan.tajuk));
+    const senarai = el('div', 'flow-data-list');
+    kumpulan.ahli.forEach((ahli, indeks) => {
+      if (indeks) senarai.append(el('div', 'flow-connector'));
+      const kad = el('div', utama ? 'flow-card flow-card-top' : 'flow-card');
+      kad.append(el('div', 'flow-role', ahli.jawatan), el('div', 'flow-name', ahli.nama));
+      senarai.append(kad);
     });
-    kad.append(senarai);
-    return kad;
+    bahagian.append(senarai);
+    return bahagian;
   };
 
   const lukisCarta = (sasaran, kumpulan) => {
@@ -41,8 +42,15 @@
       sasaran.replaceChildren(el('p', 'kandungan-kosong', 'Maklumat carta belum dikemas kini.'));
       return;
     }
-    sasaran.replaceChildren(el('div', 'bureau-grid'));
-    sasaran.firstElementChild.replaceChildren(...kumpulan.map(lukisKumpulan));
+    const struktur = el('div', 'flow-structure');
+    struktur.append(lukisKumpulan(kumpulan[0], true));
+    if (kumpulan.length > 1) {
+      struktur.append(el('div', 'flow-connector'));
+      const cabang = el('div', 'flow-data-branches');
+      cabang.replaceChildren(...kumpulan.slice(1).map((item) => lukisKumpulan(item)));
+      struktur.append(cabang);
+    }
+    sasaran.replaceChildren(struktur);
   };
 
   fetch(`${asas}/rest/v1/carta_struktur?id=eq.utama&select=struktur`, {
