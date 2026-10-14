@@ -133,7 +133,7 @@
       carta.append(autoriti);
     }
     if (pihak && pihak.ahli[1]) carta.append(sambung(), lukisAhli(pihak.ahli[1], 'flow-card-top'));
-    carta.append(sambung());
+    carta.append(el('div', 'flow-connector staff-entry-connector'));
 
     const cabang = el('div', 'staff-branches');
     const kumpulanImam = el('section', 'staff-group');
