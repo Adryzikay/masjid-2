@@ -22,35 +22,148 @@
     return node;
   };
 
-  const lukisKumpulan = (kumpulan, utama = false) => {
-    const bahagian = el('section', utama ? 'flow-data-group flow-data-root' : 'flow-data-group flow-data-branch');
-    bahagian.append(el('h3', 'flow-data-title', kumpulan.tajuk));
-    const senarai = el('div', 'flow-data-list');
-    kumpulan.ahli.forEach((ahli, indeks) => {
-      if (indeks) senarai.append(el('div', 'flow-connector'));
-      const kad = el('div', utama ? 'flow-card flow-card-top' : 'flow-card');
-      kad.append(el('div', 'flow-role', ahli.jawatan), el('div', 'flow-name', ahli.nama));
-      senarai.append(kad);
-    });
-    bahagian.append(senarai);
-    return bahagian;
+  const lukisAhli = (ahli, kelas = '') => {
+    const kad = el('div', `flow-card${kelas ? ` ${kelas}` : ''}`);
+    kad.append(el('div', 'flow-role', ahli.jawatan), el('div', 'flow-name', ahli.nama));
+    return kad;
   };
 
-  const lukisCarta = (sasaran, kumpulan) => {
-    if (!sasaran) return;
-    if (!kumpulan.length) {
-      sasaran.replaceChildren(el('p', 'kandungan-kosong', 'Maklumat carta belum dikemas kini.'));
-      return;
+  const lukisBiro = (kumpulan) => {
+    const kad = el('section', 'bureau-group');
+    kad.append(el('h4', null, kumpulan.tajuk));
+    const senarai = el('ul');
+    kumpulan.ahli.forEach((ahli) => senarai.append(el('li', null, ahli.nama)));
+    kad.append(senarai);
+    return kad;
+  };
+
+  const sambung = () => el('div', 'flow-connector');
+
+  const lukisAjk = (sasaran, kumpulan) => {
+    const kepimpinan = kumpulan.find((item) => /kepimpinan/i.test(item.tajuk)) || kumpulan[0];
+    const bakiAhli = [...kepimpinan.ahli];
+    const ambilJawatan = (jawatan) => {
+      const indeks = bakiAhli.findIndex((ahli) => ahli.jawatan.toLocaleLowerCase() === jawatan.toLocaleLowerCase());
+      return indeks < 0 ? null : bakiAhli.splice(indeks, 1)[0];
+    };
+    const carta = el('div', 'flow-structure committee-flow');
+    const turutanAtas = ['Penaung', 'Penasihat', 'Pengerusi'].map(ambilJawatan).filter(Boolean);
+    turutanAtas.forEach((ahli, indeks) => {
+      if (indeks) carta.append(sambung());
+      carta.append(lukisAhli(ahli, 'flow-card-top'));
+    });
+
+    const bendahari = ambilJawatan('Bendahari');
+    const setiausaha = ambilJawatan('Setiausaha');
+    if (bendahari || setiausaha) {
+      carta.append(sambung());
+      const pegawai = el('div', 'committee-officers');
+      if (bendahari) pegawai.append(lukisAhli(bendahari));
+      if (setiausaha) pegawai.append(lukisAhli(setiausaha));
+      carta.append(pegawai);
     }
-    const struktur = el('div', 'flow-structure');
-    struktur.append(lukisKumpulan(kumpulan[0], true));
-    if (kumpulan.length > 1) {
-      struktur.append(el('div', 'flow-connector'));
-      const cabang = el('div', 'flow-data-branches');
-      cabang.replaceChildren(...kumpulan.slice(1).map((item) => lukisKumpulan(item)));
-      struktur.append(cabang);
+
+    const timbalan = ambilJawatan('Timbalan Pengerusi');
+    if (timbalan) {
+      carta.append(sambung(), lukisAhli(timbalan, 'flow-card-top'));
     }
-    sasaran.replaceChildren(struktur);
+    bakiAhli.forEach((ahli) => carta.append(sambung(), lukisAhli(ahli, 'flow-card-top')));
+
+    const biro = kumpulan.filter((item) => item !== kepimpinan);
+    if (biro.length) {
+      carta.append(sambung());
+      const lajur = [el('div', 'flow-data-column'), el('div', 'flow-data-column'), el('div', 'flow-data-column')];
+      biro.forEach((item, indeks) => {
+        const sasaranLajur = lajur[indeks % lajur.length];
+        if (sasaranLajur.childElementCount) sasaranLajur.append(sambung());
+        sasaranLajur.append(lukisBiro(item));
+      });
+      const cabang = el('div', 'committee-bureaus');
+      cabang.replaceChildren(...lajur);
+      carta.append(cabang);
+    }
+    sasaran.replaceChildren(carta);
+  };
+
+  const kumpulanIkutTajuk = (kumpulan, perkataan, indeks, digunakan) => {
+    const ditemui = kumpulan.find((item) => !digunakan.has(item) && item.tajuk.toLocaleLowerCase().includes(perkataan));
+    const hasil = ditemui || (kumpulan[indeks] && !digunakan.has(kumpulan[indeks]) ? kumpulan[indeks] : null);
+    if (hasil) digunakan.add(hasil);
+    return hasil;
+  };
+
+  const lukisSenaraiJawatan = (sasaran, ahli, kelasPertama = '') => {
+    ahli.forEach((item, indeks) => {
+      if (indeks) sasaran.append(sambung());
+      sasaran.append(lukisAhli(item, indeks === 0 ? kelasPertama : ''));
+    });
+  };
+
+  const lukisKumpulanNama = (tajuk, ahli) => {
+    const kad = el('section', 'flow-card flow-card-support');
+    kad.append(el('div', 'flow-role', tajuk));
+    const senarai = el('ul');
+    ahli.forEach((item) => senarai.append(el('li', null, item.nama)));
+    kad.append(senarai);
+    return kad;
+  };
+
+  const lukisKumpulanTambahan = (kumpulan) => {
+    const kad = el('section', 'bureau-group');
+    kad.append(el('h4', null, kumpulan.tajuk));
+    const senarai = el('ul');
+    kumpulan.ahli.forEach((ahli) => senarai.append(el('li', null, `${ahli.jawatan}: ${ahli.nama}`)));
+    kad.append(senarai);
+    return kad;
+  };
+
+  const lukisKakitangan = (sasaran, kumpulan) => {
+    const digunakan = new Set();
+    const pihak = kumpulanIkutTajuk(kumpulan, 'pihak berkuasa', 0, digunakan);
+    const imam = kumpulanIkutTajuk(kumpulan, 'imam', 1, digunakan);
+    const pengurusan = kumpulanIkutTajuk(kumpulan, 'pengurusan', 2, digunakan);
+    const pembantu = kumpulanIkutTajuk(kumpulan, 'pembantu', 3, digunakan);
+    const bilal = kumpulanIkutTajuk(kumpulan, 'bilal', 4, digunakan);
+    const carta = el('div', 'flow-structure staff-flow');
+
+    if (pihak && pihak.ahli[0]) {
+      const utama = pihak.ahli[0];
+      const autoriti = el('div', 'flow-card flow-card-authority');
+      autoriti.append(el('div', 'flow-role', utama.jawatan), el('div', 'flow-name', utama.nama));
+      carta.append(autoriti);
+    }
+    if (pihak && pihak.ahli[1]) carta.append(sambung(), lukisAhli(pihak.ahli[1], 'flow-card-top'));
+    carta.append(sambung());
+
+    const cabang = el('div', 'staff-branches');
+    const kumpulanImam = el('section', 'staff-group');
+    kumpulanImam.append(el('h3', null, imam ? imam.tajuk : 'Imam'));
+    if (imam) lukisSenaraiJawatan(kumpulanImam, imam.ahli);
+    cabang.append(kumpulanImam);
+
+    const tengah = el('div', 'staff-center');
+    if (pengurusan) lukisSenaraiJawatan(tengah, pengurusan.ahli, 'flow-card-top');
+    if (pembantu && pembantu.ahli.length) {
+      tengah.append(sambung(), lukisKumpulanNama(pembantu.tajuk, pembantu.ahli.slice(0, 2)));
+      const bakiPembantu = pembantu.ahli.slice(2);
+      if (bakiPembantu.length) {
+        tengah.append(sambung());
+        const sokongan = el('div', 'support-grid');
+        for (let indeks = 0; indeks < bakiPembantu.length; indeks += 4) {
+          sokongan.append(lukisKumpulanNama(pembantu.tajuk, bakiPembantu.slice(indeks, indeks + 4)));
+        }
+        tengah.append(sokongan);
+      }
+    }
+    kumpulan.filter((item) => !digunakan.has(item)).forEach((item) => tengah.append(sambung(), lukisKumpulanTambahan(item)));
+    cabang.append(tengah);
+
+    const kumpulanBilal = el('section', 'staff-group');
+    kumpulanBilal.append(el('h3', null, bilal ? bilal.tajuk : 'Bilal'));
+    if (bilal) lukisSenaraiJawatan(kumpulanBilal, bilal.ahli);
+    cabang.append(kumpulanBilal);
+    carta.append(cabang);
+    sasaran.replaceChildren(carta);
   };
 
   fetch(`${asas}/rest/v1/carta_struktur?id=eq.utama&select=struktur`, {
@@ -62,7 +175,7 @@
   }).then((rows) => {
     if (!Array.isArray(rows) || !rows[0] || !sahkanStruktur(rows[0].struktur)) return;
     const { ajk, kakitangan } = rows[0].struktur;
-    lukisCarta(document.querySelector('.committee-chart'), ajk);
-    lukisCarta(document.querySelector('.staff-chart'), kakitangan);
+    lukisAjk(document.querySelector('.committee-chart'), ajk);
+    lukisKakitangan(document.querySelector('.staff-chart'), kakitangan);
   }).catch(() => {});
 })();
