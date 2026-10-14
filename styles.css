@@ -272,9 +272,13 @@
   .flow-data-title{margin:0 0 12px;color:var(--green-ink);font-family:'Lora',serif;font-size:1.05rem;text-align:center;}
   .flow-data-list{display:flex;flex-direction:column;align-items:center;width:100%;}
   .flow-data-list .flow-card{width:min(100%,620px);}
-  .flow-data-branches{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;width:100%;padding-top:22px;}
-  .flow-data-branches::before{position:absolute;top:0;left:16.66%;right:16.66%;height:2px;background:var(--gold);content:"";}
-  .flow-data-branch::before{position:absolute;top:-22px;left:50%;height:22px;border-left:2px solid var(--gold);content:"";}
+  .flow-data-branches{position:relative;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:24px;row-gap:20px;width:100%;}
+  .flow-data-branches::before{position:absolute;top:0;bottom:0;left:50%;width:2px;background:var(--gold);content:"";}
+  .flow-data-branch:nth-child(odd){grid-column:1;}
+  .flow-data-branch:nth-child(even){grid-column:2;}
+  .flow-data-branch::before{position:absolute;top:50%;width:14px;height:2px;background:var(--gold);content:"";transform:translateY(-50%);}
+  .flow-data-branch:nth-child(odd)::before{right:-14px;}
+  .flow-data-branch:nth-child(even)::before{left:-14px;}
   .committee-officers{position:relative;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;width:100%;max-width:880px;padding-top:18px;}
   .committee-officers::before{position:absolute;top:0;left:25%;right:25%;height:2px;background:var(--gold);content:"";}
   .committee-officers::after{position:absolute;top:-28px;left:50%;height:28px;border-left:2px solid var(--gold);content:"";}
@@ -301,13 +305,14 @@
   .staff-center .flow-connector{align-self:center;height:18px;}
   .flow-card-support{background:var(--paper);}
   .support-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}
-  @media (max-width:900px){.bureau-grid,.flow-data-branches{grid-template-columns:repeat(2,minmax(0,1fr));}}
+  @media (max-width:900px){.bureau-grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
   @media (max-width:760px){
     .committee-officers,.bureau-grid,.staff-branches,.support-grid,.flow-data-branches{grid-template-columns:1fr;}
     .flow-data-branches{gap:24px;padding:0 0 0 24px;}
-    .flow-data-branches::before{top:0;bottom:0;left:8px;right:auto;width:2px;height:auto;}
+    .flow-data-branches::before{left:8px;}
     .flow-data-branches::after{position:absolute;top:0;left:8px;width:calc(50% - 8px);height:2px;background:var(--gold);content:"";}
-    .flow-data-branch::before{top:18px;left:-16px;width:16px;height:1px;border:0;background:var(--gold);}
+    .flow-data-branch:nth-child(n){grid-column:1;}
+    .flow-data-branch::before{top:18px;left:-16px;right:auto;width:16px;height:1px;transform:none;}
     .staff-branches{gap:24px;margin-top:0;padding:0 0 0 24px;}
     .staff-branches::before{top:0;bottom:0;left:8px;right:auto;width:2px;height:auto;}
     .staff-branches::after{display:none;}
